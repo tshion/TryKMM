@@ -1,0 +1,49 @@
+name: Deploy libraries
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # https://github.com/actions/checkout
+      - uses: actions/checkout@v4
+
+      # https://github.com/actions/setup-java
+      - name: set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version-file: '.java-version'
+          distribution: 'microsoft'
+          cache: gradle
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build aab
+        run: ./gradlew publishAndroidReleasePublicationToMavenRepository
+
+      # https://github.com/actions/upload-artifact
+      - name: Save aab
+        uses: actions/upload-artifact@v4
+        with:
+          name: trykmmlib-android
+          path: dist/io/github/tshion/trykmmlib-android
+
+      - name: Build xcframework
+        run: ./gradlew assembleTryKMMLibReleaseXCFramework
+
+      # https://github.com/actions/upload-artifact
+      - name: Save aab
+        uses: actions/upload-artifact@v4
+        with:
+          name: trykmmlib-ios
+          path: trykmmlib/build/XCFrameworks/release/
+
+
+  transfer:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'TODO'
