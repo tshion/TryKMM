@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-android:
     runs-on: ubuntu-latest
     steps:
       # https://github.com/actions/checkout
@@ -31,6 +31,24 @@ jobs:
           name: trykmmlib-android
           path: dist/io/github/tshion/trykmmlib-android
 
+
+  build-ios:
+    runs-on: macos-13
+    steps:
+      # https://github.com/actions/checkout
+      - uses: actions/checkout@v4
+
+      # https://github.com/actions/setup-java
+      - name: set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version-file: '.java-version'
+          distribution: 'microsoft'
+          cache: gradle
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
       - name: Build xcframework
         run: ./gradlew assembleTryKMMLibReleaseXCFramework
 
@@ -41,9 +59,10 @@ jobs:
           name: trykmmlib-ios
           path: trykmmlib/build/XCFrameworks/release/
 
-
   transfer:
-    needs: build
+    needs:
+      - build-android
+      - build-ios
     runs-on: ubuntu-latest
     steps:
       - run: echo 'TODO'
