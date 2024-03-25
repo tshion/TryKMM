@@ -87,7 +87,9 @@ jobs:
 
       - name: Clear libraries at dist repository
         working-directory: repo
-        run: rm -rf ./
+        run: |
+          rm -rf *.aar
+          rm -rf *.xcframework/
 
       # https://github.com/actions/download-artifact
       - uses: actions/download-artifact@v4
@@ -103,9 +105,8 @@ jobs:
       - name: Git push
         working-directory: repo
         run: |
-          git rm $(git ls-files --deleted) --ignore-unmatch
-          git reset HEAD ./README.md
-          git checkout HEAD ./README.md
-          git add ./*
+          git rm --ignore-unmatch $(git ls-files --deleted)
+          git add *.aar
+          git add *.xcframework
           git commit -m "Deploy libraries"
           git push origin
