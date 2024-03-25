@@ -27,7 +27,9 @@ jobs:
         # https://github.com/actions/upload-artifact
         - uses: actions/upload-artifact@v4
           with:
+            name: trykmmlib-ios
             path: trykmmlib/build/XCFrameworks/release/*.xcframework
+
 
   transfer:
     needs:
@@ -52,14 +54,16 @@ jobs:
           path: repo
           token: ${{ steps.app-token.outputs.token }}
 
-      - name: Clear libraries at dist repository
-        working-directory: repo
-        run: rm -rf *.xcframework
-
       # https://github.com/actions/download-artifact
       - uses: actions/download-artifact@v4
         with:
-          path: repo
+          name: trykmmlib-ios
+          path: tmp
+
+      - name: Replace libraries at dist repository
+        run: |
+          rm -rf ./repo/*.xcframework
+          mv -f ./tmp/*.xcframework ./repo
 
       - name: Setup git settings
         working-directory: repo
