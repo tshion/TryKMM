@@ -87,9 +87,7 @@ jobs:
 
       - name: Clear libraries at dist repository
         working-directory: repo
-        run: |
-          rm -rf trykmmlib-android
-          rm -rf trykmmlib-ios
+        run: rm -rf ./
 
       # https://github.com/actions/download-artifact
       - uses: actions/download-artifact@v4
@@ -106,7 +104,8 @@ jobs:
         working-directory: repo
         run: |
           git rm $(git ls-files --deleted) --ignore-unmatch
-          git add trykmmlib-android/*
-          git add trykmmlib-ios/*
+          git reset HEAD ./README.md
+          git checkout HEAD ./README.md
+          git add ./*
           git commit -m "Deploy libraries"
           git push origin
