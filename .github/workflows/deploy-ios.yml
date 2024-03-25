@@ -74,7 +74,7 @@ jobs:
       - name: Git push
         working-directory: repo
         run: |
-          git rm --ignore-unmatch $(git ls-files --deleted)
-          git add *.xcframework/*
+          git rm $(git ls-files --deleted)
+          git add -f *.xcframework/*
           git commit -m "Deploy libraries"
           git push origin
