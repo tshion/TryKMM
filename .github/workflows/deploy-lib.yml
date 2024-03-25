@@ -105,7 +105,7 @@ jobs:
       - name: Git push
         working-directory: repo
         run: |
-          git rm $(git ls-files --deleted)
+          git rm $(git ls-files --deleted) --ignore-unmatch
           git add trykmmlib-android/*
           git add trykmmlib-ios/*
           git commit -m "Deploy libraries"
