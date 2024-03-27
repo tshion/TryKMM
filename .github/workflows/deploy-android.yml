@@ -1,10 +1,10 @@
-name: Deploy libraries
+name: Deploy android library
 
 on:
   workflow_dispatch:
 
 jobs:
-  build-android:
+  build:
     runs-on: ubuntu-latest
     steps:
       # https://github.com/actions/checkout
@@ -22,49 +22,18 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build aab
-        # run: ./gradlew publishAndroidReleasePublicationToMavenRepository
         run: ./gradlew assembleRelease
 
       # https://github.com/actions/upload-artifact
-      - name: Save aab
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: trykmmlib-android
-          # path: dist/io/github/tshion/trykmmlib-android
-          path: trykmmlib/build/outputs/aar/
+          path: trykmmlib/build/outputs/aar/*.aar
 
-
-  build-ios:
-    runs-on: macos-13
-    steps:
-      # https://github.com/actions/checkout
-      - uses: actions/checkout@v4
-
-      # https://github.com/actions/setup-java
-      - name: set up JDK
-        uses: actions/setup-java@v4
-        with:
-          java-version-file: '.java-version'
-          distribution: 'microsoft'
-          cache: gradle
-
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Build xcframework
-        run: ./gradlew assembleTryKMMLibReleaseXCFramework
-
-      # https://github.com/actions/upload-artifact
-      - name: Save aab
-        uses: actions/upload-artifact@v4
-        with:
-          name: trykmmlib-ios
-          path: trykmmlib/build/XCFrameworks/release/
 
   transfer:
     needs:
-      - build-android
-      - build-ios
+      - build
     runs-on: ubuntu-latest
     steps:
       # https://github.com/actions/create-github-app-token
@@ -81,20 +50,20 @@ jobs:
       - name: Checkout dist repository
         uses: actions/checkout@v4
         with:
-          repository: tshion/TryKMMRepo
+          repository: ${{ github.repository_owner }}/TryKMMRepo
           path: repo
           token: ${{ steps.app-token.outputs.token }}
-
-      - name: Clear libraries at dist repository
-        working-directory: repo
-        run: |
-          rm -rf *.aar
-          rm -rf *.xcframework/
 
       # https://github.com/actions/download-artifact
       - uses: actions/download-artifact@v4
         with:
-          path: repo
+          name: trykmmlib-android
+          path: tmp
+
+      - name: Replace libraries at dist repository
+        run: |
+          rm -rf ./repo/*.aar
+          mv -f ./tmp/*.aar ./repo
 
       - name: Setup git settings
         working-directory: repo
@@ -105,8 +74,6 @@ jobs:
       - name: Git push
         working-directory: repo
         run: |
-          git rm --ignore-unmatch $(git ls-files --deleted)
-          git add *.aar
-          git add *.xcframework/*
-          git commit -m "Deploy libraries"
+          git add --all *.aar
+          git commit --message "Deploy libraries"
           git push origin
