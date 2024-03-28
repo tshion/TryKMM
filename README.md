@@ -1,2 +1,13 @@
 # TryKMM
 Kotlin Multiplatform Mobile の試し書き。
+
+## 生成したライブラリの導入方法
+1. [TryKMMRepo](https://github.com/tshion/TryKMMRepo) にアクセスする
+1. バイナリをローカルにダウンロードする
+    * Android -> aar
+    * iOS -> xcframework
+1. 導入したいプロジェクトに、ダウンロードしたバイナリを手動で配置する
+
+## 参考文献
+* [GitHub Actions 内で他の repository に push する | blog.euxn.me](https://blog.euxn.me/entry/2024-02-17-01-push-to-other-repo-in-github-actions/)
+    * [GitHub Appsトークン解体新書：GitHub ActionsからPATを駆逐する技術](https://zenn.dev/tmknom/articles/github-apps-token)
