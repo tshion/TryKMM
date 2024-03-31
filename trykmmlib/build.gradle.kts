@@ -4,6 +4,7 @@ import java.net.URI
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.androidLibrary)
     id("maven-publish")
 }
@@ -34,10 +35,23 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            //put your multiplatform dependencies here
+            implementation(libs.kotlin.coroutines.core)
+            implementation(libs.kotlin.datetime)
+
+            implementation(libs.ktor.client.contentNegotiation)
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.serialization.json)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+        }
+
+        androidMain.dependencies {
+            implementation(libs.ktor.client.android)
+        }
+
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
         }
     }
 
