@@ -28,6 +28,10 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             baseName = "TryKMMLib"
+            binaryOption("bundleId", "io.github.tshiop")
+            binaryOption("bundleShortVersionString", "0.0.0")
+            binaryOption("bundleVersion", "0")
+
             xcf.add(this)
             isStatic = true
         }

@@ -11,3 +11,5 @@ Kotlin Multiplatform Mobile の試し書き。
 ## 参考文献
 * [GitHub Actions 内で他の repository に push する | blog.euxn.me](https://blog.euxn.me/entry/2024-02-17-01-push-to-other-repo-in-github-actions/)
     * [GitHub Appsトークン解体新書：GitHub ActionsからPATを駆逐する技術](https://zenn.dev/tmknom/articles/github-apps-token)
+* Kotlin Multiplatform
+    * [Build final native binaries | Kotlin Documentation](https://kotlinlang.org/docs/multiplatform-build-native-binaries.html)
