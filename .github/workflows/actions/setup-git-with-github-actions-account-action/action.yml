@@ -1,0 +1,8 @@
+name: Set up git config with github actions's account
+
+runs:
+  using: composite
+  steps:
+    - run: |
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "GitHub Actions"
