@@ -66,10 +66,10 @@ jobs:
           mv -f ./tmp/*.aar ./repo
 
       - name: Setup git settings
-        working-directory: repo
-        run: |
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "GitHub Actions"
+        uses: tshion/apply-git-user@1.0.0
+        with:
+          path: repo
+          user: github-actions
 
       - name: Git push
         working-directory: repo
