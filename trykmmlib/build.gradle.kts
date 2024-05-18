@@ -19,7 +19,7 @@ kotlin {
         publishLibraryVariants("release", "debug")
     }
     explicitApi = ExplicitApiMode.Strict
-
+    
     val xcf = XCFramework("TryKMMLib")
     listOf(
         iosX64(),
@@ -28,7 +28,7 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             baseName = "TryKMMLib"
-            binaryOption("bundleId", "io.github.tshiop")
+            binaryOption("bundleId", "io.github.tshion")
             binaryOption("bundleShortVersionString", "0.0.0")
             binaryOption("bundleVersion", "0")
 
@@ -68,7 +68,7 @@ android {
     namespace = "io.github.tshion.trykmmlib"
     compileSdk = 34
     defaultConfig {
-        minSdk = 29
+        minSdk = 21
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8

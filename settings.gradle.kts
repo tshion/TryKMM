@@ -15,4 +15,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "TryKMM"
+include(":androidApp")
 include(":trykmmlib")

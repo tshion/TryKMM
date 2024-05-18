@@ -22,7 +22,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build aab
-        run: ./gradlew assembleRelease
+        run: ./gradlew trykmmlib:assembleRelease
 
       # https://github.com/actions/upload-artifact
       - uses: actions/upload-artifact@v4

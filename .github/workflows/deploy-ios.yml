@@ -22,7 +22,7 @@ jobs:
           run: chmod +x gradlew
 
         - name: Build xcframework
-          run: ./gradlew assembleTryKMMLibReleaseXCFramework
+          run: ./gradlew trykmmlib:assembleTryKMMLibReleaseXCFramework
 
         # https://github.com/actions/upload-artifact
         - uses: actions/upload-artifact@v4
