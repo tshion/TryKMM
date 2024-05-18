@@ -2,13 +2,19 @@ import SwiftUI
 import TryKMMLib
 
 struct ContentView: View {
-	var body: some View {
-		Text(Greeting().greet().joined())
-	}
+    @State private var message: String = "..."
+
+    var body: some View {
+        Text(message).task {
+            Greeting().launchPhrase { text, error in
+                message = text ?? "Failed"
+            }
+        }
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
-	static var previews: some View {
-		ContentView()
-	}
+    static var previews: some View {
+        ContentView()
+    }
 }
