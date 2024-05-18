@@ -1,25 +1,28 @@
 package io.github.tshion.trykmm.android
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.lifecycleScope
-import io.github.tshion.trykmmlib.Greeting
-import kotlinx.coroutines.launch
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val model = Greeting()
-        val message  = model.greet().joinToString()
-//        Log.d("onCreate: ", message)
 
         setContent {
             MyApplicationTheme {
@@ -27,28 +30,31 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    GreetingView(message)
+                    GreetingView()
                 }
-            }
-        }
-
-        lifecycleScope.launch {
-            model.greetStream().collect {
-                Log.d("onCreate: greetStream", it)
             }
         }
     }
 }
 
 @Composable
-fun GreetingView(text: String) {
-    Text(text = text)
+fun GreetingView(viewModel: MainViewModel = viewModel()) {
+    Column(
+        modifier = Modifier.padding(all = 20.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        val greetings by viewModel.greetingList.collectAsState()
+        greetings.forEach {
+            Text(text = it)
+            HorizontalDivider()
+        }
+    }
 }
 
 @Preview
 @Composable
 fun DefaultPreview() {
     MyApplicationTheme {
-        GreetingView("Hello, Android!")
+        GreetingView()
     }
 }

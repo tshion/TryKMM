@@ -1,16 +1,17 @@
 [versions]
 agp = "8.2.0"
-androidx-activityCompose = "1.8.0"
-compose = "1.5.4"
-compose-compiler = "1.5.4"
-compose-material3 = "1.1.2"
+androidx-lifecycle = "2.8.0"
+compose = "1.6.7"
+compose-compiler = "1.5.5"
 kotlin = "1.9.20"
 ktor = "2.3.9"
 
 [libraries]
-androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
-compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version = "1.9.0" }
+androidx-lifecycle-runtime-compose =  { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-viewmodel-compose =  { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-viewmodel-ktx =  { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
+compose-material3 = { module = "androidx.compose.material3:material3", version = "1.2.1" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
