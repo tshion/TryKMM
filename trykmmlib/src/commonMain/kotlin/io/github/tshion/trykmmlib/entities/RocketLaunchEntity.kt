@@ -1,10 +1,10 @@
-package io.github.tshion.trykmmlib
+package io.github.tshion.trykmmlib.entities
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class RocketLaunch(
+internal data class RocketLaunchEntity(
     @SerialName("flight_number")
     val flightNumber: Int,
     @SerialName("name")

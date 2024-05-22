@@ -6,7 +6,7 @@ struct ContentView: View {
 
     var body: some View {
         Text(message).task {
-            Greeting().launchPhrase { text, error in
+            SampleModel().launchPhrase { text, error in
                 message = text ?? "Failed"
             }
         }

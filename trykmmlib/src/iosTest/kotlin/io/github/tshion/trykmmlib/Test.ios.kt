@@ -7,6 +7,6 @@ class IosGreetingTest {
 
     @Test
     fun testExample() {
-        assertTrue(Greeting().greet().any { it.contains("iOS") }, "Check iOS is mentioned")
+        assertTrue(SampleModel().greet().contains("iOS"), "Check iOS is mentioned")
     }
 }
