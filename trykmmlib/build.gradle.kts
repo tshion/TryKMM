@@ -85,7 +85,7 @@ version = libVersionText
 publishing {
     repositories {
         maven {
-            url = URI("file://$rootDir/dist")
+            url = uri("${project.rootDir}/repo-maven")
         }
     }
 }

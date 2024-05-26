@@ -4,9 +4,27 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
+      # https://github.com/actions/create-github-app-token
+      - name: Create token for maven repository
+        uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: "TryKMMRepoMaven"
+
+      # https://github.com/actions/checkout
+      - name: Checkout maven repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/TryKMMRepoMaven
+          path: repo-maven
+          token: ${{ steps.app-token.outputs.token }}
+
       # https://github.com/actions/checkout
       - uses: actions/checkout@v4
 
@@ -18,62 +36,19 @@ jobs:
           distribution: 'microsoft'
           cache: gradle
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Build aab
-        run: ./gradlew trykmmlib:assembleRelease
-
-      # https://github.com/actions/upload-artifact
-      - uses: actions/upload-artifact@v4
-        with:
-          name: trykmmlib-android
-          path: trykmmlib/build/outputs/aar/*.aar
-
-
-  transfer:
-    needs:
-      - build
-    runs-on: ubuntu-latest
-    steps:
-      # https://github.com/actions/create-github-app-token
-      - name: Create token for dist repository
-        uses: actions/create-github-app-token@v1
-        id: app-token
-        with:
-          app-id: ${{ vars.APP_ID }}
-          private-key: ${{ secrets.PRIVATE_KEY }}
-          owner: ${{ github.repository_owner }}
-          repositories: "TryKMMRepo"
-
-      # https://github.com/actions/checkout
-      - name: Checkout dist repository
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ github.repository_owner }}/TryKMMRepo
-          path: repo
-          token: ${{ steps.app-token.outputs.token }}
-
-      # https://github.com/actions/download-artifact
-      - uses: actions/download-artifact@v4
-        with:
-          name: trykmmlib-android
-          path: tmp
-
-      - name: Replace libraries at dist repository
+      - name: Build aar
         run: |
-          rm -rf ./repo/*.aar
-          mv -f ./tmp/*.aar ./repo
+          chmod +x gradlew
+          ./gradlew trykmmlib:publishAndroidReleasePublicationToMavenRepository
 
-      - name: Setup git settings
-        uses: tshion/apply-git-user@2.0.0
+      - uses: tshion/apply-git-user@2.0.0
         with:
-          path: repo
+          path: repo-maven
           user: github-actions
 
-      - name: Git push
-        working-directory: repo
+      - name: Push aar to maven repository
+        working-directory: repo-maven
         run: |
-          git add --all *.aar
+          git add *
           git commit --message "Deploy libraries"
           git push origin
