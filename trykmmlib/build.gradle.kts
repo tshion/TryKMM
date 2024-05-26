@@ -1,6 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
 import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
-import java.net.URI
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -22,7 +21,7 @@ kotlin {
         publishLibraryVariants("release", "debug")
     }
     explicitApi = ExplicitApiMode.Strict
-    
+
     val xcf = XCFramework("TryKMMLib")
     listOf(
         iosX64(),
@@ -85,7 +84,17 @@ version = libVersionText
 publishing {
     repositories {
         maven {
+            name = "Develop"
             url = uri("${project.rootDir}/repo-maven")
+        }
+
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/tshion/TryKMM")
+            credentials {
+                username = System.getenv("USERNAME")
+                password = System.getenv("TOKEN")
+            }
         }
     }
 }
