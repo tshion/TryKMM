@@ -9,6 +9,9 @@ plugins {
     id("maven-publish")
 }
 
+val libVersion = 1
+val libVersionText = "0.0.1"
+
 kotlin {
     androidTarget {
         compilations.all {
@@ -29,8 +32,8 @@ kotlin {
         it.binaries.framework {
             baseName = "TryKMMLib"
             binaryOption("bundleId", "io.github.tshion")
-            binaryOption("bundleShortVersionString", "0.0.0")
-            binaryOption("bundleVersion", "0")
+            binaryOption("bundleShortVersionString", libVersionText)
+            binaryOption("bundleVersion", "$libVersion")
 
             xcf.add(this)
             isStatic = true
@@ -77,7 +80,7 @@ android {
 }
 
 group = "io.github.tshion"
-version = "0.0.0"
+version = libVersionText
 
 publishing {
     repositories {
