@@ -8,8 +8,11 @@ plugins {
     id("maven-publish")
 }
 
-val libVersion = 1
-val libVersionText = "0.0.1"
+
+// ビルド情報の読み取り
+val buildProperties = Properties()
+buildProperties.load(FileInputStream(rootProject.file("trykmmlib/build.properties")))
+
 
 kotlin {
     androidTarget {
@@ -31,8 +34,8 @@ kotlin {
         it.binaries.framework {
             baseName = "TryKMMLib"
             binaryOption("bundleId", "io.github.tshion")
-            binaryOption("bundleShortVersionString", libVersionText)
-            binaryOption("bundleVersion", "$libVersion")
+            binaryOption("bundleShortVersionString", "${buildProperties["version_name"]}")
+            binaryOption("bundleVersion", "${buildProperties["version_code"]}")
 
             xcf.add(this)
             isStatic = true
@@ -79,7 +82,7 @@ android {
 }
 
 group = "io.github.tshion"
-version = libVersionText
+version = "${buildProperties["version_name"]}"
 
 publishing {
     repositories {
