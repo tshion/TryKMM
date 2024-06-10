@@ -112,7 +112,7 @@ jobs:
 
       - name: Git push
         run: |
-          git add -all *.xcframework/*
+          git add --all *.xcframework/*
           git commit --message "Release ${{ needs.check.outputs.tag }} for iOS"
           git push origin
 
