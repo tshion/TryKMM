@@ -22,22 +22,12 @@ concurrency:
 
 jobs:
   create-version-pr:
-    if: github.ref_type == 'branch'
+    if: ${{ github.ref_type == 'branch' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
     steps:
-      # https://github.com/actions/create-github-app-token
-    #   - name: Create token for dist repository
-    #     uses: actions/create-github-app-token@v1
-    #     id: app-token
-    #     with:
-    #       app-id: ${{ vars.APP_ID }}
-    #       private-key: ${{ secrets.PRIVATE_KEY }}
-    #       owner: ${{ github.repository_owner }}
-    #       repositories: "TryKMMRepo"
-
       # https://github.com/actions/checkout
       - uses: actions/checkout@v4
 
@@ -51,14 +41,14 @@ jobs:
         id: version
         run: |
           jshell -R-Dargs="${{ inputs.versionMajor }} ${{ inputs.versionMinor }} ${{ inputs.versionPatch }}" .github/scripts/set-version.jsh
-          echo "$(jshell .github/scripts/get-version-name.jsh)" > TMP_LOG
-          bash .github/scripts/can-release.bash $(cat TMP_LOG)
-          echo "branch-name=feature/update_$(cat TMP_LOG)" >> "$GITHUB_OUTPUT"
-          echo "message=アプリバージョン更新: $(cat TMP_LOG)" >> "$GITHUB_OUTPUT"
+          tag=$(jshell .github/scripts/get-version-name.jsh)
+          bash .github/scripts/can-release.bash $tag
+          echo "branch-name=feature/update_$tag" >> "$GITHUB_OUTPUT"
+          echo "message=バージョン更新: $tag" >> "$GITHUB_OUTPUT"
         env:
           GH_TOKEN: ${{ github.token }}
-        #   GH_TOKEN: ${{ steps.app-token.outputs.token }}
 
+      # https://github.com/tshion/apply-git-user
       - uses: tshion/apply-git-user@2.0.0
         with:
           user: github-actions
@@ -70,10 +60,20 @@ jobs:
           git commit --message "${{ steps.version.outputs.message }}"
           git push --set-upstream origin ${{ steps.version.outputs.branch-name }}
 
+      - name: Create a file for pull request's body
+        shell: ruby {0}
+        run: |
+          text = <<BODY
+            ## 確認事項
+            * [ ] 意図したバージョンが設定されている
+            * [ ] ビルド出来る
+          BODY
+          File.open("PR_BODY", "w") { |file|
+            file.write(text)
+          }
+
       - name: Create pull request
         run: |
-          gh pr create --base ${{ github.ref_name }} --title "${{ steps.version.outputs.message }}" --body "## 確認事項
-          * [ ] 意図したバージョンが設定されている
-          * [ ] ビルド出来る"
+          gh pr create --base ${{ github.ref_name }} --title "${{ steps.version.outputs.message }}" --body-file PR_BODY
         env:
           GH_TOKEN: ${{ github.token }}
