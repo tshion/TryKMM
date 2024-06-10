@@ -126,3 +126,5 @@ jobs:
     needs:
       - upload-binary
     uses: ./.github/workflows/181a-upload-podspec.yml
+    secrets:
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}

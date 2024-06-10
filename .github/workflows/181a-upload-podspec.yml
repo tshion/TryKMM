@@ -2,6 +2,9 @@ name: 181a Upload podspec
 
 on:
   workflow_call:
+    secrets:
+      PRIVATE_KEY:
+        required: true
 
   workflow_dispatch:
 
