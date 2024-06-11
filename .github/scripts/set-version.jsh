@@ -12,6 +12,11 @@ try {
         throw new IOException("%s にファイルが存在しません".formatted(file.getAbsolutePath()));
     }
 
+    final var filePod = new File("TryKMMLib.podspec");
+    if (!filePod.exists() || !filePod.isFile()) {
+        throw new IOException("%s にファイルが存在しません".formatted(filePod.getAbsolutePath()));
+    }
+
 
     // コマンドライン引数の検証
     final var args = System.getProperty("args").toString().split(" ");
@@ -47,6 +52,12 @@ try {
         .replaceAll("(version_name=)\\d[\\d\\.]{0,}\\d", "$1%s".formatted(versionName))
         ;
     Files.writeString(path, text);
+
+    final var pathPod = filePod.toPath();
+    final var textPod = Files.readString(pathPod)
+        .replaceAll("(\\s+spec.version\\s+=\\s+)\"\\d[\\d\\.]{0,}\\d\"", "$1\"%s\"".formatted(versionName))
+        ;
+    Files.writeString(pathPod, textPod);
 
 
     // 終了表示
