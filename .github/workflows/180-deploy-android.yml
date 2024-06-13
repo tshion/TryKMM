@@ -9,7 +9,8 @@ concurrency:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
+    runs-on: macos-14
     permissions:
       contents: read
       packages: write
