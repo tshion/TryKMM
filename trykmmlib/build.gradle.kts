@@ -23,7 +23,7 @@ kotlin {
                 jvmTarget = "1.8"
             }
         }
-        publishLibraryVariants("release", "debug")
+        publishLibraryVariants("release")
     }
     explicitApi = ExplicitApiMode.Strict
 

@@ -41,4 +41,4 @@ jobs:
           TOKEN: ${{ github.token }}
         run: |
           chmod +x gradlew
-          ./gradlew trykmmlib:publishAndroidReleasePublicationToGitHubPackagesRepository --debug
+          ./gradlew trykmmlib:publishAndroidReleasePublicationToGitHubPackagesRepository --info
