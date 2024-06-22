@@ -55,6 +55,9 @@ jobs:
           with:
             gradle-home-cache-cleanup: true
 
+        # https://github.com/XcodesOrg/xcodes
+        - run: xcodes select
+
         - name: Build
           run: |
             chmod +x gradlew
