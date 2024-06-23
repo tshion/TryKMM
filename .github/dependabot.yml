@@ -13,6 +13,14 @@ updates:
     assignees:
       - "tshion"
 
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+    assignees:
+      - "tshion"
+
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
