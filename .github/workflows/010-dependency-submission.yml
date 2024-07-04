@@ -1,0 +1,28 @@
+name: 010 Dependency Submission
+
+on:
+  push:
+    branches:
+      - develop
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  dependency-submission:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      # https://github.com/actions/checkout
+      - uses: actions/checkout@v4
+
+      # https://github.com/actions/setup-java
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'microsoft'
+          java-version-file: '.java-version'
+
+      # https://github.com/gradle/actions
+      - uses: gradle/actions/dependency-submission@v3
