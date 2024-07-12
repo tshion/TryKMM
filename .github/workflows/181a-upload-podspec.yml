@@ -38,7 +38,7 @@ jobs:
         run: make setup-ios
 
       # https://github.com/tshion/apply-git-user
-      - uses: tshion/apply-git-user@2.0.1
+      - uses: tshion/apply-git-user@2.0.2
         with:
           global: true
           user: github-actions
