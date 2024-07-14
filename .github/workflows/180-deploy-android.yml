@@ -9,9 +9,8 @@ concurrency:
 
 jobs:
   deploy:
-    # runs-on: macos-14
-    runs-on: ubuntu-latest
-    # runs-on: ubuntu-24.04
+    runs-on: macos-14
+    # runs-on: ubuntu-latest # FIXME: Ubuntu だとビルド時間が異常にかかってしまう問題の解消
     permissions:
       contents: read
       packages: write
@@ -43,4 +42,4 @@ jobs:
         env:
           USERNAME: ${{ github.repository_owner }}
           TOKEN: ${{ github.token }}
-        run: ./gradlew trykmmlib:publishAndroidReleasePublicationToGitHubPackagesRepository --info
+        run: ./gradlew trykmmlib:publishAndroidReleasePublicationToGitHubPackagesRepository
