@@ -1,9 +1,11 @@
 name: 010 Dependency Submission
 
 on:
-  push:
-    branches:
-      - develop
+  schedule:
+    - cron: 0 19 * * 0 # Sunday 4am JST
+
+  workflow_dispatch:
+
 
 concurrency:
   group: ${{ github.workflow }}
