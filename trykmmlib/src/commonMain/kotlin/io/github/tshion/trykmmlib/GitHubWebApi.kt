@@ -5,8 +5,8 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.cache.HttpCache
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.request.get
-import io.ktor.http.appendPathSegments
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
@@ -40,6 +40,10 @@ public class GitHubWebApi internal constructor(
                 })
             }
             install(HttpCache)
+
+            defaultRequest {
+                url(baseUrl)
+            }
         }
     }
 
@@ -78,17 +82,15 @@ public class GitHubWebApi internal constructor(
         perPage: Int? = null,
         page: Int? = null,
     ): String {
-        val response: GetSearchRepositoriesResponseDto = _httpClient.get(baseUrl) {
+        val response = _httpClient.get("search/repositories") {
             url {
-                appendPathSegments("search/repositories")
-
                 parameters.append("q", q)
                 sort?.also { parameters.append("sort", it) }
                 order?.also { parameters.append("order", it) }
                 perPage?.also { parameters.append("perPage", it.toString()) }
                 page?.also { parameters.append("page", it.toString()) }
             }
-        }.body()
+        }.body<GetSearchRepositoriesResponseDto>()
         return response.toString()
     }
 }
