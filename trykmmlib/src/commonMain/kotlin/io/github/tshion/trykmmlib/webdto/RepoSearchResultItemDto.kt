@@ -1,6 +1,6 @@
 package io.github.tshion.trykmmlib.webdto
 
-import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
 
 /**
@@ -108,9 +108,9 @@ internal data class RepoSearchResultItemDto(
     val description: String?,
     val fork: Boolean,
     val url: String,
-    val created_at: Clock,
-    val updated_at: Clock,
-    val pushed_at: Clock,
+    val created_at: Instant,
+    val updated_at: Instant,
+    val pushed_at: Instant,
     val homepage: String?,
     val size: Int,
     val stargazers_count: Int,
@@ -120,7 +120,7 @@ internal data class RepoSearchResultItemDto(
     val open_issues_count: Int,
     val master_branch: String? = null,
     val default_branch: String,
-    val score: Int,
+//    val score: Int,
     val forks_url: String,
     val keys_url: String,
     val collaborators_url: String,
