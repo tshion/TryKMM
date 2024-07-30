@@ -109,7 +109,7 @@ jobs:
           name: ${{ needs.build.outputs.zipname }}
 
       # https://github.com/tshion/apply-git-user
-      - uses: tshion/apply-git-user@2.0.2
+      - uses: tshion/apply-git-user@2.0.3
         with:
           user: github-actions
 
