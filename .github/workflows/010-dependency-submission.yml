@@ -28,4 +28,4 @@ jobs:
           java-version-file: '.java-version'
 
       # https://github.com/gradle/actions
-      - uses: gradle/actions/dependency-submission@v3
+      - uses: gradle/actions/dependency-submission@v4
