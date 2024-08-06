@@ -51,7 +51,7 @@ jobs:
             java-version-file: '.java-version'
 
         # https://github.com/gradle/actions
-        - uses: gradle/actions/setup-gradle@v3
+        - uses: gradle/actions/setup-gradle@v4
           with:
             gradle-home-cache-cleanup: true
 
