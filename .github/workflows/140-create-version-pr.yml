@@ -50,7 +50,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
 
       # https://github.com/tshion/apply-git-user
-      - uses: tshion/apply-git-user@2.0.3
+      - uses: tshion/apply-git-user@2.0.4
         with:
           user: github-actions
 
