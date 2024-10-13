@@ -31,12 +31,23 @@ jobs:
       # https://github.com/XcodesOrg/xcodes
       - run: xcodes select
 
+      - run: chmod +x gradlew
+
       # https://github.com/github/codeql-action
       - name: Initialize CodeQL for java-kotlin
         uses: github/codeql-action/init@v3
         with:
           languages: java-kotlin
           build-mode: manual
+      
+      - name: Build manually for java-kotlin
+        run: ./gradlew trykmmlib:assembleRelease
+
+      # https://github.com/github/codeql-action
+      - name: Perform CodeQL Analysis for java-kotlin
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:java-kotlin"
 
       # https://github.com/github/codeql-action
       - name: Initialize CodeQL for swift
@@ -45,19 +56,8 @@ jobs:
           languages: swift
           build-mode: manual
 
-      - run: chmod +x gradlew
-      
-      - name: Build manually for java-kotlin
-        run: ./gradlew trykmmlib:assembleRelease
-
       - name: Build manually for swift
         run: ./gradlew trykmmlib:assembleTryKMMLibReleaseXCFramework
-
-      # https://github.com/github/codeql-action
-      - name: Perform CodeQL Analysis for java-kotlin
-        uses: github/codeql-action/analyze@v3
-        with:
-          category: "/language:java-kotlin"
 
       # https://github.com/github/codeql-action
       - name: Perform CodeQL Analysis for swift
