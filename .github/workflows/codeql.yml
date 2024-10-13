@@ -1,0 +1,66 @@
+name: "CodeQL Advanced"
+
+on:
+  push:
+    branches: [ "develop" ]
+  schedule:
+    - cron: 0 19 * * 0 # Sunday 4am JST
+
+jobs:
+  analyze-kmp:
+    runs-on: macos-14
+    permissions:
+      actions: read
+      contents: read
+      packages: read
+      security-events: write
+    steps:
+      # https://github.com/actions/checkout
+      - uses: actions/checkout@v4
+
+      # https://github.com/actions/setup-java
+      - name: set up JDK
+        uses: actions/setup-java@v4
+        with:      
+          distribution: 'microsoft'
+          java-version-file: '.java-version'
+
+      # https://github.com/gradle/actions
+      - uses: gradle/actions/setup-gradle@v4
+
+      # https://github.com/XcodesOrg/xcodes
+      - run: xcodes select
+
+      # https://github.com/github/codeql-action
+      - name: Initialize CodeQL for java-kotlin
+        uses: github/codeql-action/init@v3
+        with:
+          languages: java-kotlin
+          build-mode: manual
+
+      # https://github.com/github/codeql-action
+      - name: Initialize CodeQL for swift
+        uses: github/codeql-action/init@v3
+        with:
+          languages: swift
+          build-mode: manual
+
+      - run: chmod +x gradlew
+      
+      - name: Build manually for java-kotlin
+        run: ./gradlew trykmmlib:assembleRelease
+
+      - name: Build manually for swift
+        run: ./gradlew trykmmlib:assembleTryKMMLibReleaseXCFramework
+
+      # https://github.com/github/codeql-action
+      - name: Perform CodeQL Analysis for java-kotlin
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:java-kotlin"
+
+      # https://github.com/github/codeql-action
+      - name: Perform CodeQL Analysis for swift
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:swift"
