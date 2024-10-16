@@ -19,7 +19,7 @@ compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview"
 desugar-jdk = { module = "com.android.tools:desugar_jdk_libs", version = "2.0.4" }
 
 kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version = "1.7.3" }
-kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.6.0" }
+kotlin-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.6.1" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 
 ktor-client-contentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
