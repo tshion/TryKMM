@@ -32,7 +32,7 @@ Kotlin Multiplatform Mobile の試し書き。
 1. 導入したいプロジェクトにCocoaPods を導入する
 1. Podfile に依存関係を記述する
     ``` ruby
-    source 'https://github.com/tshion/TryKMMRepoPod.git'
+    source 'https://github.com/tshion/iOSRepoPod.git'
     # 省略
     target '???' do
       # 省略
