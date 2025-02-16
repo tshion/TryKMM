@@ -59,6 +59,8 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp)
+            implementation("com.squareup.retrofit2:retrofit:2.11.0")
+            implementation("com.squareup.retrofit2:converter-kotlinx-serialization:2.11.0")
         }
 
         iosMain.dependencies {
@@ -78,8 +80,12 @@ android {
         minSdk = 21
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    dependencies {
+        coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
     }
 }
 
