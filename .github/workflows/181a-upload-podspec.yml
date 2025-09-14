@@ -18,7 +18,7 @@ jobs:
     timeout-minutes: 5
     steps:
       # https://github.com/actions/checkout
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       # https://github.com/actions/create-github-app-token
       - name: Create token for dist repository
