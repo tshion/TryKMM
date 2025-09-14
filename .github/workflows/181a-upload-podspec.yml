@@ -45,7 +45,9 @@ jobs:
           user: github-actions
 
       - name: Set up cocoapod repo
-        run: bundle exec pod repo add TryKMMRepoPod https://tshion:${{ steps.app-token.outputs.token }}@github.com/tshion/TryKMMRepoPod.git
+        env:
+          PAT: ${{ steps.app-token.outputs.token }}
+        run: bundle exec pod repo add TryKMMRepoPod "https://tshion:${PAT}@github.com/tshion/TryKMMRepoPod.git"
 
       - name: Upload podspec
         run: bundle exec pod repo push TryKMMRepoPod TryKMMLib.podspec --allow-warnings

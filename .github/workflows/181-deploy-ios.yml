@@ -70,8 +70,10 @@ jobs:
 
         - name: Define zip name
           id: name
+          env:
+            TAG: ${{ needs.check.outputs.tag }}
           run: |
-            name="trykmmlib-ios_${{ needs.check.outputs.tag }}"
+            name="trykmmlib-ios_${TAG}"
             echo "zipname=$name" >> "$GITHUB_OUTPUT"
             echo $name
 
@@ -119,15 +121,19 @@ jobs:
           user: github-actions
 
       - name: Git push
+        env:
+          TAG: ${{ needs.check.outputs.tag }}
         run: |
           git add --all *.xcframework/*
-          git commit --message "Release ${{ needs.check.outputs.tag }} for iOS"
+          git commit --message "Release ${TAG} for iOS"
           git push origin
 
       - name: Set git tag
+        env:
+          TAG: ${{ needs.check.outputs.tag }}
         run: |
-          git tag ${{ needs.check.outputs.tag }}
-          git push origin ${{ needs.check.outputs.tag }}
+          git tag "$TAG"
+          git push origin "$TAG"
 
 
   upload-podspec:

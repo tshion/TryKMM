@@ -32,7 +32,7 @@ jobs:
       - name: Check version
         run: |
           tag=$(jshell .github/scripts/get-version-name.jsh)
-          bash .github/scripts/can-release.bash $tag
+          bash .github/scripts/can-release.bash "$tag"
         env:
           GH_TOKEN: ${{ github.token }}
 

@@ -40,14 +40,17 @@ jobs:
 
       - name: Update version
         id: version
-        run: |
-          jshell -R-Dargs="${{ inputs.versionMajor }} ${{ inputs.versionMinor }} ${{ inputs.versionPatch }}" .github/scripts/set-version.jsh
-          tag=$(jshell .github/scripts/get-version-name.jsh)
-          bash .github/scripts/can-release.bash $tag
-          echo "branch-name=feature/update_$tag" >> "$GITHUB_OUTPUT"
-          echo "message=バージョン更新: $tag" >> "$GITHUB_OUTPUT"
         env:
           GH_TOKEN: ${{ github.token }}
+          VERSION_MAJOR: ${{ inputs.versionMajor }}
+          VERSION_MINOR: ${{ inputs.versionMinor }}
+          VERSION_PATCH: ${{ inputs.versionPatch }}
+        run: |
+          jshell -R-Dargs="${VERSION_MAJOR} ${VERSION_MINOR} ${VERSION_PATCH}" .github/scripts/set-version.jsh
+          tag=$(jshell .github/scripts/get-version-name.jsh)
+          bash .github/scripts/can-release.bash "$tag"
+          echo "branch-name=feature/update_${tag}" >> "$GITHUB_OUTPUT"
+          echo "message=バージョン更新: $tag" >> "$GITHUB_OUTPUT"
 
       # https://github.com/tshion/apply-git-user
       - uses: tshion/apply-git-user@3.0.0
@@ -55,11 +58,14 @@ jobs:
           user: github-actions
 
       - name: Git push
+        env:
+          BRANCH: ${{ steps.version.outputs.branch-name }}
+          MESSAGE: ${{ steps.version.outputs.message }}
         run: |
-          git switch --create ${{ steps.version.outputs.branch-name }}
+          git switch --create "$BRANCH"
           git add trykmmlib/build.properties
-          git commit --message "${{ steps.version.outputs.message }}"
-          git push --set-upstream origin ${{ steps.version.outputs.branch-name }}
+          git commit --message "$MESSAGE"
+          git push --set-upstream origin "$BRANCH"
 
       - name: Create a file for pull request's body
         shell: ruby {0}
@@ -74,7 +80,9 @@ jobs:
           }
 
       - name: Create pull request
-        run: |
-          gh pr create --base ${{ github.ref_name }} --title "${{ steps.version.outputs.message }}" --body-file PR_BODY
         env:
+          BRANCH: ${{ github.ref_name }}
           GH_TOKEN: ${{ github.token }}
+          TITLE: ${{ steps.version.outputs.message }}
+        run: |
+          gh pr create --base "$BRANCH" --title "$TITLE" --body-file PR_BODY
