@@ -28,7 +28,7 @@ jobs:
           app-id: ${{ vars.APP_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
-          repositories: "iOSRepoPod"
+          repositories: "TryKMMRepoPod"
 
       # https://github.com/ruby/setup-ruby
       - uses: ruby/setup-ruby@v1
@@ -47,7 +47,7 @@ jobs:
       - name: Set up cocoapod repo
         env:
           PAT: ${{ steps.app-token.outputs.token }}
-        run: bundle exec pod repo add iOSRepoPod "https://tshion:${PAT}@github.com/tshion/iOSRepoPod.git"
+        run: bundle exec pod repo add TryKMMRepoPod "https://tshion:${PAT}@github.com/tshion/TryKMMRepoPod.git"
 
       - name: Upload podspec
-        run: bundle exec pod repo push iOSRepoPod TryKMMLib.podspec --allow-warnings
+        run: bundle exec pod repo push TryKMMRepoPod TryKMMLib.podspec --allow-warnings
