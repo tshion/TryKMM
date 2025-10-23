@@ -8,7 +8,7 @@ Kotlin Multiplatform Mobile の試し書き。
     * iOS 版: URLSession
     * KMM 版: Ktor
 * Kotlin Flow の購読
-    * KMM 版: 1秒ごとの時刻表示 (UI にはUTC, JST どちらも表示すること)
+    * KMM 版: 10秒ごとの時刻表示 (UI にはUTC, JST どちらも表示すること)
 * ユーザーエージェント文字列の提供
 
 
