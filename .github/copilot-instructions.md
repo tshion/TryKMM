@@ -57,13 +57,14 @@ When performing a code review, respond in Japanese.
     * 生成コストが高いインスタンスはなるべく使いまわすこと
     * データを設計する際、不変性(immutability) を満たすこと
     * ハリウッドの原則を厳守すること
+    * 必要になるまでインスタンス化しないこと
     * ログ
         * 本番リリースする際、攻撃者に与える情報を最小限にするため、ログ出力しないこと
         * ログ出力する際、機密データを記載しないこと
 * Android
     * Android Gradle Plugin バージョンを更新する際、Android Studio やGradle 、JDK 、Kotlin Gradle Plugin との整合性を確認すること
-    * 画面間でデータの受け渡しをする際、シリアライズが必要な場合は`Parcelable` を使用すること
-    * プロセス間でデータの受け渡しをする際、シリアライズが必要な場合は`Serializable` を避け、代わりにJSON を使用すること
+    * Android プロセス間でデータの受け渡しをする際、シリアライズが必要な場合は`Parcelable` を使用すること
+    * その他のプロセス間でデータの受け渡しをする際、シリアライズが必要な場合は`Serializable` を避け、代わりにJSON を使用すること
 * Kotlin
     * スコープ関数
         * `also`: レシーバー自体に何もせず、他のものに紐付ける等、状態を変えない場合に使用すること
@@ -87,6 +88,8 @@ When performing a code review, respond in Japanese.
 
 ### サンプルアプリ(iOS)
 * Swift Regex を実装する際、パフォーマンスを注意深く確認すること
+* 型を明示し、ビルドパフォーマンスを維持すること
+* 複雑な式を避け、ビルドパフォーマンスを維持すること
 
 
 ## UI guidelines
