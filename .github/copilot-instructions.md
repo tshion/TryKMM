@@ -46,8 +46,8 @@ When performing a code review, respond in Japanese.
 
 ## Coding Standards
 * 機能の変更はPull Request を通じて行うこと
-    * Pull Request は１つの目標を解決するための最小の変更に留めること
-    * ボーイスカウトの原則は、目標が分かり辛くなってしまうため、避けること
+    * Pull Request は、レビュー担当者が理解しやすいように、１つの目的を満たす、焦点を絞った小さなものにすること
+    * ボーイスカウトの原則に則った改善は、目的がぼやけてしまうため、それ専用のPull Request を作成すること
 
 ### 共通
 * 一般論
