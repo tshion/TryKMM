@@ -81,14 +81,20 @@ When performing a code review, respond in Japanese.
     * `withContext` で指定するDispatchers は外部注入できるようにし、テストの確実性を上げること
 
 ### ライブラリ実装
-* Java との相互運用性を考慮すること
-    * companion object のメソッドには`@JvmStatic` を付与すること
-    * Java からの参照を想定しないもの、例えば`internal` なものには`@JvmSynthetic` を付与すること
-    * デフォルト引数を持つ関数、あるいはコンストラクターには`@JvmOverloads` を付与すること
-    * トップレベル関数のみ実装されているファイルは、先頭に`@file:JvmName` を付与し、Java から呼び出す際のクラス名を指定すること
 * `override` されたものを除き、可視性修飾子を明示すること
 * ライブラリ外から参照できる実装には必ずドキュメントコメントを記述すること
+
+#### Android
 * ライブラリ実装を追加する際、Android API に依存しないものであれば純水なJava/Kotlin モジュールとして実装し、パフォーマンスを最適化すること
+
+#### Kotlin
+* Java からも`public` な実装を利用できるようにすること
+    * `companion object` 内に定義した`const` 以外のプロパティには`@JvmStatic` を付与すること
+    * `companion object` 内に定義した関数には`@JvmStatic` を付与すること
+    * `Unit` を返すラムダ式は、`fun interface` を使った名前付きインターフェースに書き換えること
+    * デフォルト引数を持つ関数、あるいはコンストラクターには`@JvmOverloads` を付与すること
+    * ファイルのトップレベルに関数、あるいはプロパティが含まれる場合は、ファイルの先頭に`@file:JvmName` を付与し、Java から呼び出す際のクラス名を指定すること
+* `internal` な実装には`@JvmSynthetic` を付与し、Java から利用できないようにすること
 
 ### サンプルアプリ(iOS)
 * Swift Regex を実装する際、パフォーマンスを注意深く確認すること
