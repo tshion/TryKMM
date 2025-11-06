@@ -18,6 +18,8 @@
 
 ## UI guidelines
 ### Android View
+* Dialog
+    * `DialogFragment` でラッピングすること
 * Fragment
     * Fragment でViewBinding の参照を保持する際、必ず`onDestroyView` で解放すること
     * Fragment に別のFragment を動的に追加する際、必ず`childFragmentManager` を使用すること
