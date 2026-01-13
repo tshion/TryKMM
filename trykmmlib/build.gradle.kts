@@ -59,8 +59,8 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp)
-            implementation("com.squareup.retrofit2:retrofit:2.11.0")
-            implementation("com.squareup.retrofit2:converter-kotlinx-serialization:2.11.0")
+            implementation("com.squareup.retrofit2:retrofit:3.0.0")
+            implementation("com.squareup.retrofit2:converter-kotlinx-serialization:3.0.0")
         }
 
         iosMain.dependencies {
