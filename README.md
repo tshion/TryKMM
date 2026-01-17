@@ -1,6 +1,17 @@
 # TryKMM
 Kotlin Multiplatform Mobile の試し書き。
 
+
+## サンプルシナリオ
+* GitHub リポジトリの検索
+    * Android 版: Retrofit
+    * iOS 版: URLSession
+    * KMM 版: Ktor
+* Kotlin Flow の購読
+    * KMM 版: 10秒ごとの時刻表示 (UI にはUTC, JST どちらも表示すること)
+* ユーザーエージェント文字列の提供
+
+
 ## 生成したライブラリの導入方法
 ### Android
 1. プロジェクトルートのsettings.gradle.kts に参照先を追記する
