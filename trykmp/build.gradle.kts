@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -11,6 +12,7 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
+    explicitApi = ExplicitApiMode.Strict
     
     listOf(
         iosArm64(),
@@ -34,12 +36,19 @@ kotlin {
 
 android {
     namespace = "io.github.tshion.sample.shared"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk {
+        version = release(libs.versions.android.compileSdk.get().toInt()) {
+            val minor = libs.versions.android.compileSdkMinor.get().toInt()
+            minorApiLevel = minor.takeIf { 0 < it }
+        }
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
     defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
+        minSdk {
+            version = release(libs.versions.android.minSdk.get().toInt())
+        }
     }
 }

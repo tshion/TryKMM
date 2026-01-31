@@ -35,12 +35,21 @@ kotlin {
 
 android {
     namespace = "io.github.tshion.sample"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk {
+        version = release(libs.versions.android.compileSdk.get().toInt()) {
+            val minor = libs.versions.android.compileSdkMinor.get().toInt()
+            minorApiLevel = minor.takeIf { 0 < it }
+        }
+    }
 
     defaultConfig {
         applicationId = "io.github.tshion.sample"
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
+        minSdk {
+            version = release(libs.versions.android.minSdk.get().toInt())
+        }
+        targetSdk {
+            version = release(libs.versions.android.targetSdk.get().toInt())
+        }
         versionCode = 1
         versionName = "1.0"
     }
