@@ -1,5 +1,5 @@
 import SwiftUI
-import Shared
+import TryKMP
 
 struct ContentView: View {
     @State private var showContent = false
