@@ -2,9 +2,10 @@ package io.github.tshion.sample
 
 import platform.UIKit.UIDevice
 
-public class IOSPlatform : Platform {
-    override val name: String =
-        UIDevice.currentDevice.systemName() + " " + UIDevice.currentDevice.systemVersion
+internal class IOSPlatform : Platform {
+    override val name: String = UIDevice.currentDevice.let {
+        "${it.model}(${it.systemName} ${it.systemVersion})"
+    }
 }
 
-public actual fun getPlatform(): Platform = IOSPlatform()
+internal actual fun getPlatform(): Platform = IOSPlatform()

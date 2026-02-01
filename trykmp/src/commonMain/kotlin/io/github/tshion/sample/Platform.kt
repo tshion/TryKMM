@@ -1,7 +1,7 @@
 package io.github.tshion.sample
 
-public interface Platform {
-    public val name: String
+internal interface Platform {
+    val name: String
 }
 
-public expect fun getPlatform(): Platform
+internal expect fun getPlatform(): Platform

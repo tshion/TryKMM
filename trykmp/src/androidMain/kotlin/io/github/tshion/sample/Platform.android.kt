@@ -2,8 +2,8 @@ package io.github.tshion.sample
 
 import android.os.Build
 
-public class AndroidPlatform : Platform {
-    override val name: String = "Android ${Build.VERSION.SDK_INT}"
+internal class AndroidPlatform : Platform {
+    override val name: String = "${Build.MODEL}(Android ${Build.VERSION.SDK_INT})"
 }
 
-public actual fun getPlatform(): Platform = AndroidPlatform()
+internal actual fun getPlatform(): Platform = AndroidPlatform()
