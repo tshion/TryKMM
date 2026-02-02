@@ -1,4 +1,4 @@
-package io.github.tshion.sample
+package io.github.tshion.trykmp
 
 import kotlin.test.Test
 import kotlin.test.assertEquals

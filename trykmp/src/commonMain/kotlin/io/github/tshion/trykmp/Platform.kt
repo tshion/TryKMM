@@ -1,4 +1,4 @@
-package io.github.tshion.sample
+package io.github.tshion.trykmp
 
 internal interface Platform {
     val name: String

@@ -34,7 +34,7 @@ kotlin {
 }
 
 android {
-    namespace = "io.github.tshion.sample"
+    namespace = "io.github.tshion.trykmp"
     compileSdk {
         version = release(libs.versions.android.compileSdk.get().toInt()) {
             val minor = libs.versions.android.compileSdkMinor.get().toInt()
