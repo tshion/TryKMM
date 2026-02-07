@@ -36,6 +36,7 @@ kotlin {
             binaryOption("bundleShortVersionString", "${buildProperties["version_name"]}")
             binaryOption("bundleVersion", "${buildProperties["version_code"]}")
             xcf.add(this)
+            isStatic = true
         }
     }
 
