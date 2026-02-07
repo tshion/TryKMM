@@ -2,7 +2,7 @@ package io.github.tshion.trykmp
 
 import platform.UIKit.UIDevice
 
-internal class IOSPlatform : Platform {
+internal class IOSPlatform: Platform {
     override val name: String = UIDevice.currentDevice.systemName() + " " + UIDevice.currentDevice.systemVersion
 }
 
