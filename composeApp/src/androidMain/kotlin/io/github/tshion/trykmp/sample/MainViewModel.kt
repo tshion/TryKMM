@@ -2,7 +2,7 @@ package io.github.tshion.trykmp.sample
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStore
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.MutableCreationExtras
@@ -57,9 +57,9 @@ class MainViewModel(
 
         fun create(
             tryKmp: TryKmp,
-            viewModelStore: ViewModelStore,
+            viewModelStoreOwner: ViewModelStoreOwner,
         ) = ViewModelProvider.create(
-            viewModelStore,
+            viewModelStoreOwner,
             factory = Factory,
             extras = MutableCreationExtras().apply {
                 set(KEY_TRYKMP, tryKmp)

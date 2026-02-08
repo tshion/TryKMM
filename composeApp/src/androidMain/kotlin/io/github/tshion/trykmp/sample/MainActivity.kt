@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
                     MainView(
                         viewModel = MainViewModel.create(
                             tryKmp = TryKmp(),
-                            viewModelStore = this.viewModelStore,
+                            viewModelStoreOwner = this,
                         )
                     )
                 }
@@ -82,7 +82,7 @@ fun DefaultPreview() {
         MainView(
             viewModel = MainViewModel.create(
                 tryKmp = TryKmp(),
-                viewModelStore = LocalViewModelStoreOwner.current!!.viewModelStore,
+                viewModelStoreOwner = LocalViewModelStoreOwner.current!!,
             )
         )
     }
