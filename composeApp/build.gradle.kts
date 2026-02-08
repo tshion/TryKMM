@@ -34,16 +34,15 @@ kotlin {
 }
 
 android {
-    namespace = "io.github.tshion.trykmp"
+    namespace = "io.github.tshion.trykmp.sample"
     compileSdk {
         version = release(libs.versions.android.compileSdk.get().toInt()) {
             val minor = libs.versions.android.compileSdkMinor.get().toInt()
             minorApiLevel = minor.takeIf { 0 < it }
         }
     }
-
     defaultConfig {
-        applicationId = "io.github.tshion.sample"
+        applicationId = "io.github.tshion.trykmp.sample"
         minSdk {
             version = release(libs.versions.android.minSdk.get().toInt())
         }
@@ -64,6 +63,7 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
@@ -71,4 +71,6 @@ android {
 
 dependencies {
     debugImplementation(libs.compose.uiTooling)
+
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
 }

@@ -1,4 +1,4 @@
-package io.github.tshion.trykmp
+package io.github.tshion.trykmp.sample
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
@@ -13,6 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import io.github.tshion.trykmp.Greeting
 
 @Composable
 @Preview

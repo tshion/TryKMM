@@ -1,4 +1,4 @@
-package io.github.tshion.trykmp.molecules
+package io.github.tshion.trykmp.sample.molecules
 
 import android.content.Context
 import android.util.AttributeSet

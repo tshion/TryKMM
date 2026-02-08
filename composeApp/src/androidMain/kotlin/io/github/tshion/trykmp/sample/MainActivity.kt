@@ -1,4 +1,4 @@
-package io.github.tshion.trykmp
+package io.github.tshion.trykmp.sample
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
