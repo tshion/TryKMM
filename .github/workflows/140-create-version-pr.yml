@@ -1,0 +1,88 @@
+name: 140 Create version pull request
+
+on:
+  workflow_dispatch:
+    inputs:
+      versionMajor:
+        description: 'バージョン情報: major'
+        required: true
+        type: string
+      versionMinor:
+        description: 'バージョン情報: minor'
+        required: true
+        type: string
+      versionPatch:
+        description: 'バージョン情報: patch'
+        required: true
+        type: string
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  create-version-pr:
+    if: ${{ github.ref_type == 'branch' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      # https://github.com/actions/checkout
+      - uses: actions/checkout@v6
+
+      # https://github.com/actions/setup-java
+      - uses: actions/setup-java@v5
+        with:
+          distribution: 'microsoft'
+          java-version-file: '.java-version'
+
+      - name: Update version
+        id: version
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION_MAJOR: ${{ inputs.versionMajor }}
+          VERSION_MINOR: ${{ inputs.versionMinor }}
+          VERSION_PATCH: ${{ inputs.versionPatch }}
+        run: |
+          jshell -R-Dargs="${VERSION_MAJOR} ${VERSION_MINOR} ${VERSION_PATCH}" .github/scripts/set-version.jsh
+          tag=$(jshell .github/scripts/get-version-name.jsh)
+          bash .github/scripts/can-release.bash "$tag"
+          echo "branch-name=feature/update_${tag}" >> "$GITHUB_OUTPUT"
+          echo "message=バージョン更新: $tag" >> "$GITHUB_OUTPUT"
+
+      # https://github.com/tshion/apply-git-user
+      - uses: tshion/apply-git-user@3.0.0
+        with:
+          user: github-actions
+
+      - name: Git push
+        env:
+          BRANCH: ${{ steps.version.outputs.branch-name }}
+          MESSAGE: ${{ steps.version.outputs.message }}
+        run: |
+          git switch --create "$BRANCH"
+          git add trykmp/build.properties
+          git commit --message "$MESSAGE"
+          git push --set-upstream origin "$BRANCH"
+
+      - name: Create a file for pull request's body
+        shell: ruby {0}
+        run: |
+          text = <<BODY
+            ## 確認事項
+            * [ ] 意図したバージョンが設定されている
+            * [ ] ビルド出来る
+          BODY
+          File.open("PR_BODY", "w") { |file|
+            file.write(text)
+          }
+
+      - name: Create pull request
+        env:
+          BRANCH: ${{ github.ref_name }}
+          GH_TOKEN: ${{ github.token }}
+          TITLE: ${{ steps.version.outputs.message }}
+        run: |
+          gh pr create --base "$BRANCH" --title "$TITLE" --body-file PR_BODY
