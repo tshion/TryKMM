@@ -30,12 +30,13 @@ kotlin {
     listOf(
         iosArm64(),
         iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.binaries.framework {
+    ).forEach {
+        it.binaries.framework {
             baseName = "TryKMP"
             binaryOption("bundleId", "io.github.tshion")
             binaryOption("bundleShortVersionString", "${buildProperties["version_name"]}")
             binaryOption("bundleVersion", "${buildProperties["version_code"]}")
+
             xcf.add(this)
             isStatic = true
         }
@@ -45,6 +46,7 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.datetime)
+
             implementation(libs.ktor.client.contentNegotiation)
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.serialization.json)
@@ -95,6 +97,15 @@ publishing {
         maven {
             name = "Develop"
             url = uri("${project.rootDir}/repo-maven")
+        }
+
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/tshion/TryKMM")
+            credentials {
+                username = System.getenv("USERNAME")
+                password = System.getenv("TOKEN")
+            }
         }
     }
 }
