@@ -12,7 +12,7 @@ try {
         throw new IOException("%s にファイルが存在しません".formatted(file.getAbsolutePath()));
     }
 
-    final var filePod = new File("TryKMP.podspec");
+    final var filePod = new File("trykmp/TryKMP.podspec");
     if (!filePod.exists() || !filePod.isFile()) {
         throw new IOException("%s にファイルが存在しません".formatted(filePod.getAbsolutePath()));
     }
