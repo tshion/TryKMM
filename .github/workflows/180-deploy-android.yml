@@ -42,4 +42,4 @@ jobs:
         env:
           USERNAME: ${{ github.repository_owner }}
           TOKEN: ${{ github.token }}
-        run: ./gradlew trykmmlib:publishAndroidReleasePublicationToGitHubPackagesRepository
+        run: ./gradlew trykmp:publishAndroidReleasePublicationToGitHubPackagesRepository

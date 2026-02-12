@@ -7,12 +7,12 @@
 var statusCode = 0;
 try {
     // 作業対象ファイルの設定と検証
-    final var file = new File("trykmmlib/build.properties");
+    final var file = new File("trykmp/build.properties");
     if (!file.exists() || !file.isFile()) {
         throw new IOException("%s にファイルが存在しません".formatted(file.getAbsolutePath()));
     }
 
-    final var filePod = new File("TryKMMLib.podspec");
+    final var filePod = new File("trykmp/TryKMP.podspec");
     if (!filePod.exists() || !filePod.isFile()) {
         throw new IOException("%s にファイルが存在しません".formatted(filePod.getAbsolutePath()));
     }

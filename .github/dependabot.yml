@@ -10,24 +10,18 @@ updates:
     schedule:
       interval: "weekly"
       day: "tuesday"
-    reviewers:
-      - "tshion"
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
       day: "tuesday"
-    reviewers:
-      - "tshion"
 
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
       interval: "weekly"
       day: "tuesday"
-    reviewers:
-      - "tshion"
     ignore:
       # Android Studio が使えるKotlin Plugin, Android Gradle Plugin の組み合わせがあるので除外する
       - dependency-name: "com.android.application"

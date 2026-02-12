@@ -4,10 +4,10 @@ Kotlin Multiplatform の試し書きを目的としたリポジトリ。
 
 ## Folder Structure
 
-* `/androidApp`: Android アプリのエントリーポイント
+* `/composeApp`: Android アプリのエントリーポイント
 * `/iosApp`: iOS アプリのエントリーポイント
 * `/scripts`: 開発環境のセットアップなど、作業を簡略化するためのスクリプト実装
-* `/trykmmlib`: Kotlin Multiplatform で作成したライブラリ実装
+* `/trykmp`: Kotlin Multiplatform で作成したライブラリ実装
 
 
 ## Libraries and Frameworks

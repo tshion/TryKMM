@@ -38,7 +38,7 @@ jobs:
           build-mode: manual
       
       - name: Build manually
-        run: ./gradlew trykmmlib:assembleRelease
+        run: ./gradlew trykmp:assembleRelease
 
       # https://github.com/github/codeql-action
       - name: Perform CodeQL Analysis

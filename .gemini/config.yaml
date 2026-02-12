@@ -1,0 +1,11 @@
+ignore_patterns:
+  - ".github/instructions/"
+  - ".github/prompts/"
+  - ".github/copilot-instructions.md"
+  - ".gemini/"
+  - ".vscode/"
+  - "**/.git*"
+  - "gradlew*"
+code_review:
+  pull_request_opened:
+    include_drafts: false

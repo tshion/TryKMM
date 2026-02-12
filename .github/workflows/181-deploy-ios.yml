@@ -66,14 +66,14 @@ jobs:
         - name: Build
           run: |
             chmod +x gradlew
-            ./gradlew trykmmlib:assembleTryKMMLibReleaseXCFramework
+            ./gradlew trykmp:assembleTryKMPReleaseXCFramework
 
         - name: Define zip name
           id: name
           env:
             TAG: ${{ needs.check.outputs.tag }}
           run: |
-            name="trykmmlib-ios_${TAG}"
+            name="trykmp-ios_${TAG}"
             echo "zipname=$name" >> "$GITHUB_OUTPUT"
             echo $name
 
@@ -81,7 +81,7 @@ jobs:
         - uses: actions/upload-artifact@v6
           with:
             name: ${{ steps.name.outputs.zipname }}
-            path: ./trykmmlib/build/XCFrameworks/release/*.xcframework
+            path: ./trykmp/build/XCFrameworks/release/*.xcframework
 
 
   upload-binary:

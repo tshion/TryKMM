@@ -1,5 +1,5 @@
 # TryKMM
-Kotlin Multiplatform Mobile の試し書き。
+Kotlin Multiplatform の試し書き。
 
 ## 生成したライブラリの導入方法
 ### Android
@@ -22,7 +22,7 @@ Kotlin Multiplatform Mobile の試し書き。
     // 省略
     dependencies {
         // 省略
-        implementation("io.github.tshion:trykmmlib-android")
+        implementation("io.github.tshion:trykmp")
         // 省略
     }
     // 省略
@@ -36,7 +36,7 @@ Kotlin Multiplatform Mobile の試し書き。
     # 省略
     target '???' do
       # 省略
-      pod 'TryKMMLib'
+      pod 'TryKMP'
       # 省略
     end
     # 省略
@@ -55,4 +55,3 @@ Kotlin Multiplatform Mobile の試し書き。
     * [GitHub Appsトークン解体新書：GitHub ActionsからPATを駆逐する技術](https://zenn.dev/tmknom/articles/github-apps-token)
 * Kotlin Multiplatform
     * [Build final native binaries | Kotlin Documentation](https://kotlinlang.org/docs/multiplatform-build-native-binaries.html)
-    * IDE 設定 -> [android - Create another module in Compose Multiplatform Project - Stack Overflow](https://stackoverflow.com/questions/77577651/create-another-module-in-compose-multiplatform-project/78390254#78390254)
