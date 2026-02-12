@@ -1,1 +1,1 @@
-When performing a code review, respond in Japanese.
+Respond in Japanese.

@@ -2,6 +2,12 @@ name: 180 Deploy android library
 
 on:
   workflow_dispatch:
+    inputs:
+      buildRunner:
+        default: ubuntu-latest
+        description: ビルドに使うRunner Images
+        required: true
+        type: string
 
 concurrency:
   group: ${{ github.workflow }}
@@ -9,8 +15,7 @@ concurrency:
 
 jobs:
   deploy:
-    runs-on: macos-14
-    # runs-on: ubuntu-latest # FIXME: Ubuntu だとビルド時間が異常にかかってしまう問題の解消
+    runs-on: ${{ inputs.buildRunner }}
     permissions:
       contents: read
       packages: write

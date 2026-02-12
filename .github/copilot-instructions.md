@@ -1,3 +1,5 @@
+Respond in Japanese.
+
 # Project Overview
 Kotlin Multiplatform の試し書きを目的としたリポジトリ。
 

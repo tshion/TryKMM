@@ -50,4 +50,5 @@ jobs:
         run: bundle exec pod repo add TryKMMRepoPod "https://tshion:${PAT}@github.com/tshion/TryKMMRepoPod.git"
 
       - name: Upload podspec
-        run: bundle exec pod repo push TryKMMRepoPod trykmp/TryKMP.podspec --allow-warnings
+        working-directory: trykmp
+        run: bundle exec pod repo push TryKMMRepoPod TryKMP.podspec --allow-warnings
