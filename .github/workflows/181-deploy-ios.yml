@@ -3,9 +3,9 @@ name: 181 Deploy ios library
 on:
   workflow_dispatch:
     inputs:
-      macOSRunner:
-        default: macos-14
-        description: 使用するmacOS 環境 https://github.com/actions/runner-images
+      buildRunner:
+        default: macos-26
+        description: ビルドに使うRunner Images
         required: true
         type: string
 
@@ -41,7 +41,7 @@ jobs:
   build:
     needs:
       - check
-    runs-on: ${{ inputs.macOSRunner }}
+    runs-on: ${{ inputs.buildRunner }}
     outputs:
       zipname: ${{ steps.name.outputs.zipname }}
     steps:
