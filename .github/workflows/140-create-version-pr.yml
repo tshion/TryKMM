@@ -63,7 +63,7 @@ jobs:
           MESSAGE: ${{ steps.version.outputs.message }}
         run: |
           git switch --create "$BRANCH"
-          git add trykmp/build.properties
+          git add "trykmp/*.*"
           git commit --message "$MESSAGE"
           git push --set-upstream origin "$BRANCH"
 
