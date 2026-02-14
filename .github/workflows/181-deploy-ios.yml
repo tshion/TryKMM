@@ -127,7 +127,7 @@ jobs:
           name: ${{ needs.build.outputs.zipname }}
 
       - name: Generate Package.swift
-        run: ruby .github/scripts/generate-package.rb
+        run: ruby .github/scripts/generate-package-swift.rb
 
       # https://github.com/tshion/apply-git-user
       - uses: tshion/apply-git-user@3.0.0
