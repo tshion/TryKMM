@@ -116,7 +116,7 @@ jobs:
 
       - run: mkdir -p .github/scripts
 
-      - run: mv tmp/.github/scripts .github/scripts
+      - run: mv tmp/.github/scripts/ .github/scripts/
 
       - name: Delete previous binaries
         run: rm -rf *.xcframework
