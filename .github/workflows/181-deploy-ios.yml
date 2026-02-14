@@ -125,6 +125,8 @@ jobs:
       - name: Generate Package.swift
         run: ruby tmp/.github/scripts/generate-package-swift.rb ..
 
+      - run: rm -rf tmp/
+
       # https://github.com/tshion/apply-git-user
       - uses: tshion/apply-git-user@3.0.0
         with:
