@@ -107,6 +107,15 @@ jobs:
           repository: ${{ github.repository_owner }}/TryKMMRepo
           token: ${{ steps.app-token.outputs.token }}
 
+      - name: Checkout scripts
+        uses: actions/checkout@v6
+        with:
+          path: tmp
+          sparse-checkout: |
+            .github/scripts
+
+      - run: mv tmp/.github/scripts .github/scripts
+
       - name: Delete previous binaries
         run: rm -rf *.xcframework
 
@@ -114,6 +123,9 @@ jobs:
       - uses: actions/download-artifact@v7
         with:
           name: ${{ needs.build.outputs.zipname }}
+
+      - name: Generate Package.swift
+        run: ruby .github/scripts/generate-package.rb
 
       # https://github.com/tshion/apply-git-user
       - uses: tshion/apply-git-user@3.0.0
@@ -124,7 +136,7 @@ jobs:
         env:
           TAG: ${{ needs.check.outputs.tag }}
         run: |
-          git add --all *.xcframework/*
+          git add --all
           git commit --message "Release ${TAG} for iOS"
           git push origin
 
