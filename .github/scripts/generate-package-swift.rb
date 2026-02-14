@@ -20,8 +20,8 @@ PATH_TARGET = Pathname.new(PATH_ROOT).join(ARGV[0] || ".")
 # XCFramework の一覧取得
 SDKS = Dir.glob(Pathname.new(PATH_TARGET).join("*.xcframework"))
     .map { |path| File.basename(path, ".*") }
-unless 0 < SDKS.size
-    puts("Not Found: #{PATH_TARGET}")
+if SDKS.empty?
+    warn("Not Found: #{PATH_TARGET}")
     exit(1)
 end
 
