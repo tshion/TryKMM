@@ -1,0 +1,31 @@
+{
+    "outputDir": "dokka",
+    "pluginsClasspath": [
+        ".github/bin/analysis-kotlin-descriptors-2.1.0.jar",
+        ".github/bin/dokka-base-2.1.0.jar",
+        ".github/bin/freemarker-2.3.31.jar",
+        ".github/bin/kotlinx-html-jvm-0.8.0.jar"
+    ],
+    "sourceSets": [
+        {
+            "sourceSetID": {
+                "scopeId": "moduleName2",
+                "sourceSetName": "main"
+            },
+            "sourceRoots": [
+                "composeApp/src/androidMain"
+            ]
+        },
+        {
+            "sourceSetID": {
+                "scopeId": "moduleName",
+                "sourceSetName": "main"
+            },
+            "sourceRoots": [
+                "trykmp/src/androidMain",
+                "trykmp/src/commonMain",
+                "trykmp/src/iosMain"
+            ]
+        }
+    ]
+}

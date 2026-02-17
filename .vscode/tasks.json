@@ -4,6 +4,14 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "API ドキュメント生成",
+            "type": "process",
+            "command": "bash",
+            "args": [
+                ".github/scripts/generate-docs.bash",
+            ]
+        },
+        {
             "label": "バージョン更新",
             "type": "process",
             "command": "jshell",
