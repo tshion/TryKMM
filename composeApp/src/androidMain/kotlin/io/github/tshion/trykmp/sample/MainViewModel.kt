@@ -39,7 +39,7 @@ class MainViewModel(
         val query = "android"
         viewModelScope.launch {
             val result = model.searchGitHubRepo(query)
-            _repos.value = result
+            _repos.value = result.toString()
         }
     }
 

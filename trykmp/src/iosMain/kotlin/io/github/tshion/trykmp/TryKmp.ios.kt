@@ -1,4 +1,5 @@
 import io.github.tshion.trykmp.TryKmpCommon
+import io.github.tshion.trykmp.entities.GitHubRepo
 import io.ktor.client.HttpClient
 import platform.UIKit.UIDevice
 
@@ -13,7 +14,8 @@ public class TryKmp(
 
     public suspend fun searchGitHubRepo(
         query: String,
-    ): String {
-        return gitHubWebApi.getSearchRepositories(query).toString()
+    ): GitHubRepo {
+        val result = gitHubWebApi.getSearchRepositories(query)
+        return result.let { GitHubRepo(it) }
     }
 }

@@ -1,5 +1,6 @@
 package io.github.tshion.trykmp
 
+import io.github.tshion.trykmp.entities.GitHubRepo
 import io.ktor.client.HttpClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.currentCoroutineContext
@@ -18,8 +19,9 @@ public class TryKmp(
 
     public suspend fun searchGitHubRepo(
         query: String,
-    ): String {
-        return gitHubWebApi.getSearchRepositories(query).toString()
+    ): GitHubRepo {
+        val result = gitHubWebApi.getSearchRepositories(query)
+        return GitHubRepo(result)
     }
 
     public fun timer(): Flow<String> = flow {

@@ -1,7 +1,7 @@
 package io.github.tshion.trykmp.webdto
 
-import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
+import kotlin.time.Instant
 
 /**
  * Repo Search Result Item
