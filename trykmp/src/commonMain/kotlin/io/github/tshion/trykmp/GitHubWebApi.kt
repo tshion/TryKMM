@@ -13,7 +13,7 @@ import kotlinx.serialization.json.Json
 /**
  * GitHub REST API への接続
  */
-public class GitHubWebApi internal constructor(
+internal class GitHubWebApi internal constructor(
 //    applicationId: String,
     private val baseUrl: String,
 //    cacheDir: File,
@@ -23,7 +23,7 @@ public class GitHubWebApi internal constructor(
     /**
      * @param client アプリ全体で共有しているOkHttpClient
      */
-    public constructor(
+    constructor(
 //        applicationId: String,
 //        cacheDir: File,
         client: HttpClient,
@@ -51,7 +51,7 @@ public class GitHubWebApi internal constructor(
     /**
      * このインスタンスを破棄する際の処理
      */
-    public fun deinit() {
+    fun deinit() {
         _httpClient.close()
     }
 
@@ -75,13 +75,13 @@ public class GitHubWebApi internal constructor(
      * @param perPage The number of results per page (max 100). (optional, default to 30)
      * @param page Page number of the results to fetch. (optional, default to 1)
      */
-    public suspend fun getSearchRepositories(
+    suspend fun getSearchRepositories(
         q: String,
         sort: String? = null,
         order: String? = null,
         perPage: Int? = null,
         page: Int? = null,
-    ): String {
+    ): GetSearchRepositoriesResponseDto {
         val response = _httpClient.get("search/repositories") {
             url {
                 parameters.append("q", q)
@@ -91,6 +91,6 @@ public class GitHubWebApi internal constructor(
                 page?.also { parameters.append("page", it.toString()) }
             }
         }.body<GetSearchRepositoriesResponseDto>()
-        return response.toString()
+        return response
     }
 }

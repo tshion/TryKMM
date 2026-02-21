@@ -14,7 +14,7 @@ class GitHubWebApiTest {
         val api = GitHubWebApi(HttpClient())
         runBlocking { // FIXME
             val result = api.getSearchRepositories("android")
-            assertTrue(result.isNotBlank())
+            assertTrue(result.items.isNotEmpty())
         }
     }
 }
