@@ -28,7 +28,7 @@ class MainViewModel: ObservableObject {
 
         let query = "ios"
         let result = try! await model.searchGitHubRepo(query: query)
-        repos = result
+        repos = "\(result)"
     }
 
     func startTimer() {

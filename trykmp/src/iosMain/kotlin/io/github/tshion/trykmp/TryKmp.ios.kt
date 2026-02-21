@@ -3,9 +3,12 @@ import io.github.tshion.trykmp.entities.GitHubRepo
 import io.ktor.client.HttpClient
 import platform.UIKit.UIDevice
 
-public class TryKmp(
-    httpClient: HttpClient = HttpClient(),
+public class TryKmp internal constructor(
+    httpClient: HttpClient,
 ) : TryKmpCommon(httpClient) {
+
+    public constructor() : this(HttpClient())
+
 
     override val name: String = UIDevice.currentDevice.let {
         "${it.systemName()} ${it.systemVersion}"

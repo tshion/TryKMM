@@ -10,9 +10,12 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlin.coroutines.ContinuationInterceptor
 
-public class TryKmp(
-    httpClient: HttpClient = HttpClient(),
+public class TryKmp internal constructor(
+    httpClient: HttpClient,
 ) : TryKmpCommon(httpClient) {
+
+    public constructor() : this(HttpClient())
+
 
     override val name: String = "Android ${android.os.Build.VERSION.SDK_INT}"
 
