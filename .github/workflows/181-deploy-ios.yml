@@ -78,7 +78,7 @@ jobs:
             echo $name
 
         # https://github.com/actions/upload-artifact
-        - uses: actions/upload-artifact@v6
+        - uses: actions/upload-artifact@v7
           with:
             name: ${{ steps.name.outputs.zipname }}
             path: ./trykmp/build/XCFrameworks/release/*.xcframework
