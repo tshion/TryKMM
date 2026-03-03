@@ -75,7 +75,6 @@ android {
         }
     }
     compileOptions {
-        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
@@ -83,9 +82,6 @@ android {
         minSdk {
             version = release(libs.versions.android.minSdk.get().toInt())
         }
-    }
-    dependencies {
-        coreLibraryDesugaring(libs.desugar.jdk.libs)
     }
 }
 
