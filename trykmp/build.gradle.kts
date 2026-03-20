@@ -30,6 +30,9 @@ kotlin {
             version = release(libs.versions.android.minSdk.get().toInt())
         }
 
+        withDeviceTest {
+            instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        }
         withHostTest { }
 
         compilerOptions {
@@ -70,6 +73,13 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.kotlinx.coroutines.android)
             implementation(libs.ktor.client.okhttp)
+        }
+        getByName("androidDeviceTest").dependencies {
+            implementation(libs.androidx.test.junit)
+            implementation(libs.androidx.test.rules)
+            implementation(libs.androidx.test.runner)
+            implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test)
         }
 
         iosMain.dependencies {
