@@ -18,11 +18,23 @@ buildProperties.load(FileInputStream(rootProject.file("trykmp/build.properties")
 
 
 kotlin {
-    androidTarget {
+    android {
+        namespace = "io.github.tshion.trykmp"
+        compileSdk {
+            version = release(libs.versions.android.compileSdk.get().toInt()) {
+                val minor = libs.versions.android.compileSdkMinor.get().toInt()
+                minorApiLevel = minor.takeIf { 0 < it }
+            }
+        }
+        minSdk {
+            version = release(libs.versions.android.minSdk.get().toInt())
+        }
+
+        withHostTest { }
+
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
-        publishLibraryVariants("release")
     }
     explicitApi = ExplicitApiMode.Strict
 
@@ -62,25 +74,6 @@ kotlin {
 
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
-        }
-    }
-}
-
-android {
-    namespace = "io.github.tshion.trykmp"
-    compileSdk {
-        version = release(libs.versions.android.compileSdk.get().toInt()) {
-            val minor = libs.versions.android.compileSdkMinor.get().toInt()
-            minorApiLevel = minor.takeIf { 0 < it }
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    defaultConfig {
-        minSdk {
-            version = release(libs.versions.android.minSdk.get().toInt())
         }
     }
 }
