@@ -4,7 +4,7 @@ import SwiftUI
 struct iOSApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
-    @State private var isShowingSheet = true
+    @State private var isShowingSheet = false
 
     @StateObject private var quickActionViewModel = QuickActionViewModel.shared
 
