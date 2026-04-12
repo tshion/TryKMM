@@ -13,7 +13,7 @@ struct DeveloperMenuView: View {
     }
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List {
                 HStack {
                     Text("ローカルプッシュ通知の発行")
@@ -35,10 +35,12 @@ struct DeveloperMenuView: View {
 
                         let request = UNNotificationRequest(identifier: "localNotification", content: content, trigger: trigger)
                         UNUserNotificationCenter.current().add(request) { error in
-                            if let error {
-                                message = "\(error)"
-                            } else {
-                                message = "ローカルプッシュ通知: 発行済み"
+                            DispatchQueue.main.async {
+                                if let error {
+                                    message = "\(error)"
+                                } else {
+                                    message = "ローカルプッシュ通知: 発行済み"
+                                }
                             }
                         }
                     }
