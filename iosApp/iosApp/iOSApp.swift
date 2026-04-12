@@ -4,9 +4,20 @@ import SwiftUI
 struct iOSApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
+    @State private var isShowingSheet = true
+
+    @StateObject private var quickActionViewModel = QuickActionViewModel.shared
+
+
     var body: some Scene {
         WindowGroup {
             MainView(viewModel: MainViewModel())
+                .sheet(isPresented: $isShowingSheet) {
+                    DeveloperMenuView()
+                }
+                .onReceive(quickActionViewModel.$selected) {
+                    isShowingSheet = $0?.type == "showDeveloperMenuList"
+                }
         }
     }
 }
