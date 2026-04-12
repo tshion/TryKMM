@@ -3,14 +3,8 @@ import UserNotifications
 
 struct DeveloperMenuView: View {
 
-    @State private var message = "" {
-        willSet(newValue) {
-            guard !newValue.isEmpty else { return }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                message = ""
-            }
-        }
-    }
+    @State private var message = ""
+    @State private var timer: Timer?
 
     var body: some View {
         NavigationStack {
@@ -41,6 +35,10 @@ struct DeveloperMenuView: View {
                                 } else {
                                     message = "ローカルプッシュ通知: 発行済み"
                                 }
+                                timer?.invalidate()
+                                timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+                                    message = ""
+                                }
                             }
                         }
                     }
@@ -58,6 +56,8 @@ struct DeveloperMenuView: View {
         }
         .onDisappear {
             message = ""
+            timer?.invalidate()
+            timer = nil
         }
     }
 }
