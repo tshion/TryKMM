@@ -17,10 +17,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -45,12 +46,13 @@ public class DeveloperMenuActivity : ComponentActivity() {
 
         setContent {
             MaterialTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background,
-                ) {
+                Scaffold { innerPadding ->
                     val context = LocalContext.current
-                    Column {
+                    Column(
+                        modifier = Modifier
+                            .consumeWindowInsets(innerPadding)
+                            .padding(innerPadding),
+                    ) {
                         Button(
                             onClick = {
                                 val intent = PendingIntent.getActivity(
