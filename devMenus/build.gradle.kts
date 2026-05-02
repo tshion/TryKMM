@@ -3,11 +3,13 @@ import org.jetbrains.kotlin.gradle.dsl.ExplicitApiMode
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.androidLint)
+    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.kotlinMultiplatform)
 }
 
 kotlin {
-    androidLibrary {
+    android {
         namespace = "io.github.tshion.devmenus"
         compileSdk {
             version = release(libs.versions.android.compileSdk.get().toInt()) {
@@ -43,6 +45,9 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                implementation(libs.compose.components.resources)
+                implementation(libs.compose.material3)
+                implementation(libs.compose.uiToolingPreview)
             }
         }
         commonTest {
@@ -53,6 +58,7 @@ kotlin {
 
         androidMain {
             dependencies {
+                implementation(libs.compose.uiToolingPreview)
             }
         }
         getByName("androidDeviceTest") {
@@ -68,4 +74,8 @@ kotlin {
             }
         }
     }
+}
+
+dependencies {
+    "androidRuntimeClasspath"(libs.compose.uiTooling)
 }
