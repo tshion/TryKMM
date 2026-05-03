@@ -45,6 +45,9 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                implementation(libs.androidx.navigation3.runtime)
+                implementation(libs.androidx.navigation3.ui)
+
                 implementation(libs.compose.components.resources)
                 implementation(libs.compose.material3)
                 implementation(libs.compose.uiToolingPreview)
@@ -59,6 +62,7 @@ kotlin {
         androidMain {
             dependencies {
                 implementation(libs.androidx.activity.compose)
+                implementation(libs.androidx.startup)
                 implementation(libs.compose.uiToolingPreview)
             }
         }
