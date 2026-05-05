@@ -13,7 +13,7 @@ struct iOSApp: App {
         WindowGroup {
             MainView(viewModel: MainViewModel())
                 .sheet(isPresented: $isShowingSheet) {
-                    DeveloperMenuView()
+                    DevMenuViewControllerRepresentable()
                 }
                 .onReceive(quickActionViewModel.$selected) {
                     isShowingSheet = $0?.type == "showDeveloperMenuList"

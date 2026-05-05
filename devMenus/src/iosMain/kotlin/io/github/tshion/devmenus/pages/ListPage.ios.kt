@@ -68,22 +68,18 @@ internal actual fun ListPage() {
                                     return@requestAuthorizationWithOptions
                                 }
 
-                                val request = object : UNNotificationRequest() {
-                                    override fun content() = UNMutableNotificationContent().apply {
+                                val request = UNNotificationRequest.requestWithIdentifier(
+                                    identifier = "localNotification",
+                                    content = UNMutableNotificationContent().apply {
                                         setTitle("ローカルプッシュ通知")
                                         setBody("5秒後に表示される通知です")
                                         setSound(UNNotificationSound.defaultSound)
-                                    }
-
-                                    override fun identifier() = "localNotification"
-
-                                    override fun trigger() =
-                                        object : UNTimeIntervalNotificationTrigger() {
-                                            override fun timeInterval() = 5.0
-
-                                            override fun repeats() = false
-                                        }
-                                }
+                                    },
+                                    trigger = UNTimeIntervalNotificationTrigger.triggerWithTimeInterval(
+                                        5.0,
+                                        false,
+                                    )
+                                )
                                 UNUserNotificationCenter.currentNotificationCenter()
                                     .addNotificationRequest(request) { error ->
                                         val message = if (error != null) {
