@@ -21,6 +21,8 @@ kotlin {
             version = release(libs.versions.android.minSdk.get().toInt())
         }
 
+        androidResources.enable = true
+
         withDeviceTestBuilder {
             sourceSetTreeName = "test"
         }.configure {
