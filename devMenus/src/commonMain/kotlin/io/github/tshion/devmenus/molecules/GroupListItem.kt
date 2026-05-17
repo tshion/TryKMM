@@ -9,6 +9,9 @@ import org.jetbrains.compose.resources.painterResource
 import trykmm.devmenus.generated.resources.Res
 import trykmm.devmenus.generated.resources.folder
 
+/**
+ * タップした際、関連するリストが表示されるリスト項目UI
+ */
 @Composable
 internal fun GroupListItem(
     text: String,
