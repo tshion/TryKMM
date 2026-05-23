@@ -47,11 +47,9 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation(libs.androidx.navigation3.runtime)
-//                implementation(libs.androidx.navigation3.ui) // FIXME: iOS 対応されたら有効にしNavDisplay ベースに書き換える
-
                 implementation(libs.compose.components.resources)
                 implementation(libs.compose.material3)
+                implementation(libs.compose.navigation3.ui)
                 implementation(libs.compose.uiToolingPreview)
             }
         }

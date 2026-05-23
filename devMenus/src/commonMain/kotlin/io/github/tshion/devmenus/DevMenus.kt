@@ -1,34 +1,33 @@
 package io.github.tshion.devmenus
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
+import androidx.navigation3.runtime.NavEntry
+import androidx.navigation3.ui.NavDisplay
 import io.github.tshion.devmenus.pages.ListPage
 
-public data object ListPageKey
+public data object ListPageState
 
 @Composable
 internal fun DevMenus(
     list: List<DevMenuEntity>?,
 ) {
+    val backStack = remember { mutableStateListOf<Any>(ListPageState) }
+    NavDisplay(
+        backStack = backStack,
+        onBack = { backStack.removeLastOrNull() },
+        entryProvider = { key ->
+            when (key) {
+                is ListPageState -> NavEntry(key) {
+                    ListPage()
+                }
 
-    val backStack = remember { mutableStateListOf<Any>(ListPageKey) }
-    backStack.add(ListPage())
-
-    // FIXME: iOS 対応されたらNavDisplay ベースに書き換える
-//    NavDisplay(
-//        backStack = backStack,
-//        onBack = { backStack.removeLastOrNull() },
-//        entryProvider = { key ->
-//            when (key) {
-//                is List -> NavEntry(key) {
-//                    ListPage()
-//                }
-//
-//                else -> NavEntry(Unit) {
-//                    Text("Unknown route")
-//                }
-//            }
-//        }
-//    )
+                else -> NavEntry(Unit) {
+                    Text("Unknown route")
+                }
+            }
+        }
+    )
 }
