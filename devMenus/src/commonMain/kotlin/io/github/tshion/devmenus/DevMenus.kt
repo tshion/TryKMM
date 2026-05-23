@@ -5,11 +5,14 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import io.github.tshion.devmenus.pages.ListPage
 
-public data object List
+public data object ListPageKey
 
 @Composable
-internal fun DevMenus() {
-    val backStack = remember { mutableStateListOf<Any>(List) }
+internal fun DevMenus(
+    list: List<DevMenuEntity>?,
+) {
+
+    val backStack = remember { mutableStateListOf<Any>(ListPageKey) }
     backStack.add(ListPage())
 
     // FIXME: iOS 対応されたらNavDisplay ベースに書き換える

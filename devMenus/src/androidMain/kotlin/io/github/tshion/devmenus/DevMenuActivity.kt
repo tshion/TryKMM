@@ -22,8 +22,9 @@ public class DevMenuActivity : ComponentActivity() {
             manager.createNotificationChannel(it)
         }
 
+        val provider = application as? DevMenuProvider
         setContent {
-            DevMenus()
+            DevMenus(provider?.devMenuList)
         }
     }
 
