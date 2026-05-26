@@ -6,5 +6,8 @@ import platform.UIKit.UIViewController
 
 public fun DevMenuViewController(): UIViewController = ComposeUIViewController {
     val provider = UIApplication.sharedApplication.delegate as? DevMenuProvider
-    DevMenus(provider?.devMenuList)
+    val viewModel = DevMenuSpecViewModel.create(
+        specs = provider?.devMenuList,
+    )
+    ViewHost(viewModel)
 }

@@ -51,6 +51,7 @@ kotlin {
                 implementation(libs.compose.material3)
                 implementation(libs.compose.navigation3.ui)
                 implementation(libs.compose.uiToolingPreview)
+                implementation(libs.compose.viewmodel)
             }
         }
         commonTest {

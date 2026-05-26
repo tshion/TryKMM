@@ -6,9 +6,9 @@ android-minSdk = "29"
 android-targetSdk = "36"
 
 agp = "9.0.1"
-androidxLifecycle = "2.9.6"
 androidxTest = "1.7.0"
 composeMultiplatform = "1.10.0"
+composeViewModel = "2.10.0"
 kotlin = "2.3.0"
 kotlinxCoroutines = "1.10.2"
 ktor = "3.4.0"
@@ -16,8 +16,6 @@ ktor = "3.4.0"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version = "1.12.2" }
-androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
-androidx-lifecycle-viewmodelCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
 androidx-startup = { group = "androidx.startup", name = "startup-runtime", version = "1.2.0" }
 androidx-test-junit = { group = "androidx.test.ext", name = "junit-ktx", version = "1.3.0" }
 androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "androidxTest" }
@@ -31,6 +29,7 @@ compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.re
 compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "composeMultiplatform" }
 compose-uiTooling = { module = "org.jetbrains.compose.ui:ui-tooling", version.ref = "composeMultiplatform" }
 compose-uiToolingPreview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "composeMultiplatform" }
+compose-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "composeViewModel" }
 
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 
