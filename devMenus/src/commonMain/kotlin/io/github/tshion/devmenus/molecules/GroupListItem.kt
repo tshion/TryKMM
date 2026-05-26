@@ -7,7 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import io.github.tshion.devmenus.DevMenuEntity
+import io.github.tshion.devmenus.DevMenuSpec
 import org.jetbrains.compose.resources.painterResource
 import trykmm.devmenus.generated.resources.Res
 import trykmm.devmenus.generated.resources.folder
@@ -16,13 +16,16 @@ import trykmm.devmenus.generated.resources.folder
  * タップした際、関連するリストが表示されるリスト項目UI
  */
 @Composable
-internal fun GroupListItem(spec: DevMenuEntity) {
+internal fun GroupListItem(
+    spec: DevMenuSpec.Group,
+    onClick: () -> Unit,
+) {
     ListItem(
         headlineContent = {
             Text(spec.title)
         },
         modifier = Modifier.clickable {
-            // TODO: 画面遷移
+            onClick()
         },
         leadingContent = {
             Icon(painterResource(Res.drawable.folder), null)
@@ -33,8 +36,9 @@ internal fun GroupListItem(spec: DevMenuEntity) {
 @Composable
 @Preview
 private fun Preview() {
-    val spec = DevMenuEntity.newGroup(
+    val spec = DevMenuSpec.Group(
         "Group Title",
     )
-    GroupListItem(spec)
+    GroupListItem(spec) {
+    }
 }

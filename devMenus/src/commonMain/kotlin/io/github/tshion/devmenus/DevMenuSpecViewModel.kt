@@ -36,13 +36,15 @@ internal class DevMenuSpecViewModel(
      * 履歴情報の更新
      */
     fun updateHistory(
-        history: String,
+        currentHistory: String,
         index: Int,
         spec: DevMenuSpec,
     ) = if (spec is DevMenuSpec.Group) {
-        listOf(history, "$index").joinToString()
+        listOf(currentHistory, "$index")
+            .filter { it.isNotBlank() }
+            .joinToString()
     } else {
-        history
+        currentHistory
     }
 
 

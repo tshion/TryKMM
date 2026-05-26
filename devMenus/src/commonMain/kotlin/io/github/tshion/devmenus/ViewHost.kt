@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
+import io.github.tshion.devmenus.pages.IndexPage
 
 internal data class RouteIndex(val history: String)
 
@@ -13,7 +14,7 @@ internal data class RouteIndex(val history: String)
  */
 @Composable
 internal fun ViewHost(
-    viewModel: DevMenuSpecViewModel = DevMenuSpecViewModel.create(emptyList()),
+    viewModel: DevMenuSpecViewModel,
 ) {
     val backStack = remember { mutableStateListOf<Any>(RouteIndex("")) }
     NavDisplay(
@@ -24,6 +25,9 @@ internal fun ViewHost(
                 metadata = mapOf("keyHistory" to "valueHistory"),
             ) { key ->
                 val history = key.history
+                IndexPage(history, viewModel) {
+                    backStack.add(RouteIndex(it))
+                }
             }
         }
     )

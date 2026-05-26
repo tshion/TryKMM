@@ -6,19 +6,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import io.github.tshion.devmenus.DevMenuEntity
+import io.github.tshion.devmenus.DevMenuSpec
 
 /**
  * タップした際、アクションが発動するリスト項目UI
  */
 @Composable
-internal fun ActionListItem(spec: DevMenuEntity) {
+internal fun ActionListItem(spec: DevMenuSpec.Action) {
     ListItem(
         headlineContent = {
             Text(spec.title)
         },
         modifier = Modifier.clickable {
-            spec.action?.invoke()
+            spec.action()
         },
         supportingContent = {
             if (!(spec.description.isNullOrBlank())) {
@@ -31,7 +31,7 @@ internal fun ActionListItem(spec: DevMenuEntity) {
 @Composable
 @Preview
 private fun Preview() {
-    val spec = DevMenuEntity.newAction("Action Title") {
+    val spec = DevMenuSpec.Action("Action Title") {
     }
     ActionListItem(spec)
 }
@@ -39,7 +39,7 @@ private fun Preview() {
 @Composable
 @Preview
 private fun Preview2() {
-    val spec = DevMenuEntity.newAction(
+    val spec = DevMenuSpec.Action(
         "Action Title",
         "description"
     ) {
