@@ -5,40 +5,33 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import io.github.tshion.devmenus.DevMenuSpec
 import io.github.tshion.devmenus.DevMenuSpecViewModel
+import io.github.tshion.devmenus.NavViewModel
+import io.github.tshion.devmenus.Route
 import io.github.tshion.devmenus.molecules.ActionListItem
 import io.github.tshion.devmenus.molecules.GroupListItem
+import io.github.tshion.devmenus.molecules.Header
 
+/**
+ * 一覧画面
+ */
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 internal fun IndexPage(
     history: String,
-    viewModel: DevMenuSpecViewModel,
-    onNavigation: (String) -> Unit,
+    navViewModel: NavViewModel,
+    specViewModel: DevMenuSpecViewModel,
 ) {
     Scaffold(
-        topBar = {
-            TopAppBar(
-                colors = topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
-                ),
-                title = {
-                    Text("開発者メニュー")
-                }
-            )
-        },
+        topBar = { Header(navViewModel) },
     ) { innerPadding ->
-        val specs = viewModel.load(history)
+        val specs = specViewModel.load(history)
         LazyColumn(
             modifier = Modifier
                 .consumeWindowInsets(innerPadding)
@@ -48,8 +41,8 @@ internal fun IndexPage(
                 when (spec) {
                     is DevMenuSpec.Action -> ActionListItem(spec)
                     is DevMenuSpec.Group -> GroupListItem(spec) {
-                        val updated = viewModel.updateHistory(history, index, spec)
-                        onNavigation(updated)
+                        val updated = specViewModel.updateHistory(history, index, spec)
+                        navViewModel.navigateNext(Route.Index(updated))
                     }
                 }
             }
@@ -76,7 +69,7 @@ private fun Preview() {
     )
     IndexPage(
         "",
-        DevMenuSpecViewModel.create(specs)
-    ) {
-    }
+        viewModel(),
+        DevMenuSpecViewModel.create(specs),
+    )
 }

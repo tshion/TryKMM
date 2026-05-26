@@ -4,33 +4,28 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import io.github.tshion.devmenus.pages.IndexPage
-
-internal data class RouteIndex(val history: String)
 
 /**
  * 表示のエントリーポイント
  */
 @Composable
 internal fun ViewHost(
-    viewModel: DevMenuSpecViewModel,
+    specViewModel: DevMenuSpecViewModel,
+    navViewModel: NavViewModel = viewModel(),
 ) {
-    val backStack = remember { mutableStateListOf<Any>(RouteIndex("")) }
+    navViewModel.navigateNext(Route.Index(""))
     NavDisplay(
-        backStack = backStack,
-        onBack = { backStack.removeLastOrNull() },
+        backStack = navViewModel.backStack,
+        onBack = navViewModel::navigateBack,
         entryProvider = entryProvider {
-            entry<RouteIndex>(
+            entry<Route.Index>(
                 metadata = mapOf("keyHistory" to "valueHistory"),
             ) { key ->
-                val history = key.history
-                IndexPage(history, viewModel) {
-                    backStack.add(RouteIndex(it))
-                }
+                IndexPage(key.history, navViewModel, specViewModel)
             }
         },
         transitionSpec = {

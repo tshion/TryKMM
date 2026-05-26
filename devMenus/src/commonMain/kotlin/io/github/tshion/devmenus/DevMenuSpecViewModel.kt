@@ -45,7 +45,7 @@ internal class DevMenuSpecViewModel(
             .joinToString()
     } else {
         currentHistory
-    }
+    }.trim()
 
 
     internal companion object {
