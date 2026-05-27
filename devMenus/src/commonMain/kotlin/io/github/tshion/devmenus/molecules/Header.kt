@@ -48,16 +48,17 @@ internal fun Header(
 @Composable
 @Preview
 private fun Preview(
-    @PreviewParameter(PreviewProvider::class) navViewModel: NavViewModel,
+    @PreviewParameter(HeaderPreviewProvider::class) navViewModel: NavViewModel,
 ) {
     Header(navViewModel)
 }
 
-private class PreviewProvider : PreviewParameterProvider<NavViewModel> {
+private class HeaderPreviewProvider : PreviewParameterProvider<NavViewModel> {
     override val values = sequenceOf(
+        NavViewModel(),
         NavViewModel().apply {
             navigateNext(Route.Index(""))
+            navigateNext(Route.Index(""))
         },
-        NavViewModel(),
     )
 }

@@ -5,18 +5,25 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import io.github.tshion.devmenus.DevMenuSpec
 import io.github.tshion.devmenus.DevMenuSpecViewModel
+import io.github.tshion.devmenus.DevMenuViewer
 import io.github.tshion.devmenus.NavViewModel
 import io.github.tshion.devmenus.Route
 import io.github.tshion.devmenus.molecules.ActionListItem
 import io.github.tshion.devmenus.molecules.GroupListItem
 import io.github.tshion.devmenus.molecules.Header
+import kotlinx.coroutines.launch
 
 /**
  * 一覧画面
@@ -28,8 +35,21 @@ internal fun IndexPage(
     navViewModel: NavViewModel,
     specViewModel: DevMenuSpecViewModel,
 ) {
+    val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
+    val viewer = object : DevMenuViewer {
+        override fun showSnackbar(message: String) {
+            scope.launch {
+                snackbarHostState.showSnackbar(message)
+            }
+        }
+    }
+
     Scaffold(
         topBar = { Header(navViewModel) },
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
+        },
     ) { innerPadding ->
         val specs = specViewModel.load(history)
         LazyColumn(
@@ -39,12 +59,13 @@ internal fun IndexPage(
         ) {
             itemsIndexed(specs) { index, spec ->
                 when (spec) {
-                    is DevMenuSpec.Action -> ActionListItem(spec)
+                    is DevMenuSpec.Action -> ActionListItem(spec, viewer)
                     is DevMenuSpec.Group -> GroupListItem(spec) {
                         val updated = specViewModel.updateHistory(history, index, spec)
                         navViewModel.navigateNext(Route.Index(updated))
                     }
                 }
+                HorizontalDivider()
             }
         }
     }

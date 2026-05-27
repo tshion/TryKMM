@@ -15,7 +15,7 @@ public sealed class DevMenuSpec {
     public data class Action(
         internal val title: String,
         internal val description: String? = null,
-        internal val action: () -> Unit,
+        internal val action: (DevMenuViewer) -> Unit,
     ) : DevMenuSpec()
 
     /**

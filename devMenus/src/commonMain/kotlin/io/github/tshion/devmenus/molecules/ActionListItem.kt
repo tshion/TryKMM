@@ -6,19 +6,26 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import io.github.tshion.devmenus.DevMenuSpec
+import io.github.tshion.devmenus.DevMenuViewer
+import io.github.tshion.devmenus.MockDevMenuViewer
 
 /**
  * タップした際、アクションが発動するリスト項目UI
  */
 @Composable
-internal fun ActionListItem(spec: DevMenuSpec.Action) {
+internal fun ActionListItem(
+    spec: DevMenuSpec.Action,
+    viewer: DevMenuViewer,
+) {
     ListItem(
         headlineContent = {
             Text(spec.title)
         },
         modifier = Modifier.clickable {
-            spec.action()
+            spec.action(viewer)
         },
         supportingContent = {
             if (!(spec.description.isNullOrBlank())) {
@@ -30,19 +37,18 @@ internal fun ActionListItem(spec: DevMenuSpec.Action) {
 
 @Composable
 @Preview
-private fun Preview() {
-    val spec = DevMenuSpec.Action("Action Title") {
+private fun Preview(
+    @PreviewParameter(ActionListItemPreviewProvider::class) text: String?,
+) {
+    val spec = DevMenuSpec.Action("Action Title", text) {
     }
-    ActionListItem(spec)
+    ActionListItem(spec, MockDevMenuViewer())
 }
 
-@Composable
-@Preview
-private fun Preview2() {
-    val spec = DevMenuSpec.Action(
-        "Action Title",
-        "description"
-    ) {
-    }
-    ActionListItem(spec)
+private class ActionListItemPreviewProvider : PreviewParameterProvider<String?> {
+    override val values = sequenceOf(
+        null,
+        "",
+        "description",
+    )
 }
