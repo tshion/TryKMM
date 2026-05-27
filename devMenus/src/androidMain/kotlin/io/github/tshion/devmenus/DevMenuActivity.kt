@@ -1,7 +1,5 @@
 package io.github.tshion.devmenus
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,15 +14,6 @@ public class DevMenuActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
-        NotificationChannel(
-            CHANNEL_ID,
-            "Developer Menu",
-            NotificationManager.IMPORTANCE_DEFAULT,
-        ).also {
-            val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-            manager.createNotificationChannel(it)
-        }
-
         val provider = application as? DevMenuProvider
         setContent {
             val viewModel = DevMenuSpecViewModel.create(
@@ -32,11 +21,5 @@ public class DevMenuActivity : ComponentActivity() {
             )
             ViewHost(viewModel)
         }
-    }
-
-
-    internal companion object {
-
-        internal const val CHANNEL_ID = "io.github.tshion.devmenus"
     }
 }

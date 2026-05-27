@@ -25,7 +25,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import io.github.tshion.devmenus.DevMenuActivity
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -62,7 +61,7 @@ internal actual fun ListPage() {
                             PendingIntent.FLAG_IMMUTABLE,
                         )
                         val builder =
-                            NotificationCompat.Builder(context, DevMenuActivity.CHANNEL_ID)
+                            NotificationCompat.Builder(context, "DevMenuActivity.CHANNEL_ID")
                                 .setContentTitle("ローカルプッシュ通知")
                                 .setContentText("5秒後に表示される通知です")
                                 .setSmallIcon(R.drawable.ic_menu_report_image)
