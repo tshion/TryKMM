@@ -15,7 +15,7 @@ import io.github.tshion.devmenus.pages.IndexPage
 @Composable
 internal fun ViewHost(
     specViewModel: DevMenuSpecViewModel,
-    navViewModel: NavViewModel = viewModel(),
+    navViewModel: NavViewModel = viewModel { NavViewModel() },
 ) {
     navViewModel.navigateNext(Route.Index(""))
     NavDisplay(
