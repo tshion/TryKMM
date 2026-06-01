@@ -1,5 +1,8 @@
 package io.github.tshion.devmenus
 
+import kotlin.experimental.ExperimentalObjCName
+import kotlin.native.ObjCName
+
 /**
  * 開発メニューの定義データ
  */
@@ -12,19 +15,26 @@ public sealed class DevMenuSpec {
      * @param description 説明 (※省略可)
      * @param action タップ時の挙動
      */
+    @OptIn(ExperimentalObjCName::class)
     public data class Action(
-        internal val title: String,
-        internal val description: String? = null,
-        internal val action: (DevMenuViewer) -> Unit,
-    ) : DevMenuSpec()
+        @param:ObjCName("_") internal val title: String,
+        @param:ObjCName("_") internal val description: String?,
+        @param:ObjCName("_") internal val action: (DevMenuViewer) -> Unit,
+    ) : DevMenuSpec() {
+
+        public constructor(
+            @ObjCName("_") title: String,
+            @ObjCName("_") action: (DevMenuViewer) -> Unit,
+        ) : this(title, null, action)
+    }
 
     /**
      * タップした際、子要素が表示される開発メニュー
      */
-    @ConsistentCopyVisibility
-    public data class Group private constructor(
-        internal val title: String,
-        internal val children: List<DevMenuSpec>,
+    @OptIn(ExperimentalObjCName::class)
+    public data class Group(
+        @param:ObjCName("_") internal val title: String,
+        @param:ObjCName("_") internal val children: List<DevMenuSpec>,
     ) : DevMenuSpec() {
 
         /**

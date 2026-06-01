@@ -1,3 +1,4 @@
+import DevMenus
 import SwiftUI
 
 @main
@@ -13,7 +14,7 @@ struct iOSApp: App {
         WindowGroup {
             MainView(viewModel: MainViewModel())
                 .sheet(isPresented: $isShowingSheet) {
-                    DevMenuViewControllerRepresentable()
+                    DevMenuViewControllerRepresentable(appDelegate.devMenuList)
                 }
                 .onReceive(quickActionViewModel.$selected) {
                     isShowingSheet = $0?.type == "showDeveloperMenuList"

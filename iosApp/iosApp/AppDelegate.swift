@@ -1,3 +1,4 @@
+import DevMenus
 import UIKit
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,5 +30,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
         configuration.delegateClass = SceneDelegate.self
         return configuration
+    }
+}
+
+extension AppDelegate: DevMenuProvider {
+
+    var devMenuList: [DevMenuSpec] {
+        return [
+            DevMenuSpec.Group(
+                "ディープリンク",
+                [
+                    DevMenuSpec.Action("通常のアプリ起動") { viewer in
+                        UNUserNotificationCenter.current().requestAuthorization(
+                            options: [.alert, .sound, .badge]
+                        ) { granted, error in
+                            guard granted else {
+                                viewer.showSnackbar(message: error?.localizedDescription ?? "")
+                                return
+                            }
+
+                            let content = UNMutableNotificationContent()
+                            content.title = "ローカルプッシュ通知"
+                            content.body = "5秒後に表示される通知です"
+                            content.sound = .default
+                            
+                            let request = UNNotificationRequest(
+                                identifier: "localNotification",
+                                content: content,
+                                trigger: UNTimeIntervalNotificationTrigger(
+                                    timeInterval: 5.0,
+                                    repeats: false
+                                )
+                            )
+                            UNUserNotificationCenter.current().add(request) { error in
+                                if let error = error {
+                                    viewer.showSnackbar(message: error.localizedDescription)
+                                } else {
+                                    viewer.showSnackbar(message: "ローカルプッシュ通知: 発行済み")
+                                }
+                            }
+                        }
+                    }
+                ]
+            ),
+            DevMenuSpec.Action("a") { _ in
+            },
+            DevMenuSpec.Action("b", "c") { _ in
+            },
+        ]
     }
 }
