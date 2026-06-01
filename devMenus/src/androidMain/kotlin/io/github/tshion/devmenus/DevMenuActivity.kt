@@ -16,10 +16,7 @@ public class DevMenuActivity : ComponentActivity() {
 
         val provider = application as? DevMenuProvider
         setContent {
-            val viewModel = DevMenuSpecViewModel.create(
-                specs = provider?.devMenuList,
-            )
-            ViewHost(viewModel)
+            ViewHost(provider?.devMenuList)
         }
     }
 }

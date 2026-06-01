@@ -11,6 +11,5 @@ import kotlin.experimental.ExperimentalObjCName
 public fun DevMenuViewController(
     @ObjCName("_") specs: List<DevMenuSpec>?,
 ): UIViewController = ComposeUIViewController {
-    val viewModel = DevMenuSpecViewModel.create(specs)
-    ViewHost(viewModel)
+    ViewHost(specs)
 }

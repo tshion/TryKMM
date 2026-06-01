@@ -14,6 +14,14 @@ import io.github.tshion.devmenus.pages.IndexPage
  */
 @Composable
 internal fun ViewHost(
+    specs: List<DevMenuSpec>?,
+) {
+    val viewModel = DevMenuSpecViewModel.create(specs)
+    return ViewHost(viewModel)
+}
+
+@Composable
+private fun ViewHost(
     specViewModel: DevMenuSpecViewModel,
     navViewModel: NavViewModel = viewModel { NavViewModel() },
 ) {
