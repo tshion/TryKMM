@@ -9,7 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import io.github.tshion.devmenus.DevMenuSpec
-import io.github.tshion.devmenus.DevMenuViewer
+import io.github.tshion.devmenus.DevMenuViewContract
 import io.github.tshion.devmenus.MockDevMenuViewer
 
 /**
@@ -18,7 +18,7 @@ import io.github.tshion.devmenus.MockDevMenuViewer
 @Composable
 internal fun ActionListItem(
     spec: DevMenuSpec.Action,
-    viewer: DevMenuViewer,
+    viewer: DevMenuViewContract,
 ) {
     ListItem(
         headlineContent = {

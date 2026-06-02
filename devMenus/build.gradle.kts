@@ -63,6 +63,7 @@ kotlin {
         androidMain {
             dependencies {
                 implementation(libs.androidx.activity.compose)
+                api(libs.androidx.fragment)
                 implementation(libs.androidx.startup)
                 implementation(libs.compose.uiToolingPreview)
             }

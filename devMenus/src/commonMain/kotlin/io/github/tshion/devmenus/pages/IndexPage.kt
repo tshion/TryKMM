@@ -17,9 +17,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import io.github.tshion.devmenus.DevMenuSpec
 import io.github.tshion.devmenus.DevMenuSpecViewModel
-import io.github.tshion.devmenus.DevMenuViewer
+import io.github.tshion.devmenus.DevMenuViewContract
 import io.github.tshion.devmenus.NavViewModel
 import io.github.tshion.devmenus.Route
+import io.github.tshion.devmenus.getContext
 import io.github.tshion.devmenus.molecules.ActionListItem
 import io.github.tshion.devmenus.molecules.GroupListItem
 import io.github.tshion.devmenus.molecules.Header
@@ -37,7 +38,13 @@ internal fun IndexPage(
 ) {
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
-    val viewer = object : DevMenuViewer {
+
+    val context = getContext()
+    val viewer = object : DevMenuViewContract {
+        override fun getContext(): Any? {
+            return context
+        }
+
         override fun showSnackbar(message: String) {
             scope.launch {
                 snackbarHostState.showSnackbar(message)

@@ -20,6 +20,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.net.toUri
 import io.github.tshion.devmenus.DevMenuProvider
 import io.github.tshion.devmenus.DevMenuSpec
+import io.github.tshion.devmenus.getActivity
 
 internal class MainApplication : Application(), DevMenuProvider {
 
@@ -28,10 +29,9 @@ internal class MainApplication : Application(), DevMenuProvider {
         DevMenuSpec.Action("アプリのOS 設定画面へ遷移") {
             val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
                 data = "package:${packageName}".toUri()
-                addFlags(FLAG_ACTIVITY_NEW_TASK)
             }
             if (intent.resolveActivity(packageManager) != null) {
-                startActivity(intent)
+                it.getActivity().startActivity(intent)
             }
         },
         DevMenuSpec.Group(

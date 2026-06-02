@@ -19,12 +19,12 @@ public sealed class DevMenuSpec {
     public data class Action(
         @param:ObjCName("_") internal val title: String,
         @param:ObjCName("_") internal val description: String?,
-        @param:ObjCName("_") internal val action: (DevMenuViewer) -> Unit,
+        @param:ObjCName("_") internal val action: (DevMenuViewContract) -> Unit,
     ) : DevMenuSpec() {
 
         public constructor(
             @ObjCName("_") title: String,
-            @ObjCName("_") action: (DevMenuViewer) -> Unit,
+            @ObjCName("_") action: (DevMenuViewContract) -> Unit,
         ) : this(title, null, action)
     }
 
