@@ -22,15 +22,6 @@ kotlin {
         }
 
         androidResources.enable = true
-
-        withDeviceTestBuilder {
-            sourceSetTreeName = "test"
-        }.configure {
-            instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        }
-
-        withHostTestBuilder {
-        }
     }
     explicitApi = ExplicitApiMode.Strict
 
@@ -54,11 +45,6 @@ kotlin {
                 implementation(libs.compose.viewmodel)
             }
         }
-        commonTest {
-            dependencies {
-                implementation(libs.kotlin.test)
-            }
-        }
 
         androidMain {
             dependencies {
@@ -66,13 +52,6 @@ kotlin {
                 api(libs.androidx.fragment)
                 implementation(libs.androidx.startup)
                 implementation(libs.compose.uiToolingPreview)
-            }
-        }
-        getByName("androidDeviceTest") {
-            dependencies {
-                implementation(libs.androidx.test.junit)
-                implementation(libs.androidx.test.rules)
-                implementation(libs.androidx.test.runner)
             }
         }
 
