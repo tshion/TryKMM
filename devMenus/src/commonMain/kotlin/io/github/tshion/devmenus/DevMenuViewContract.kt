@@ -1,7 +1,10 @@
 package io.github.tshion.devmenus
 
+import kotlin.experimental.ExperimentalObjCRefinement
+import kotlin.native.HiddenFromObjC
+
 /**
- * 開発メニューで操作できるUI の定義
+ * 開発メニューが提供するUI 操作の定義
  */
 public interface DevMenuViewContract {
 
@@ -10,7 +13,9 @@ public interface DevMenuViewContract {
      *
      * ※利用側で適宜Cast してください
      */
-    public fun getContext(): Any?
+    @HiddenFromObjC
+    @OptIn(ExperimentalObjCRefinement::class)
+    public val _context: Any?
 
     /**
      * スナックバーの表示
@@ -20,9 +25,7 @@ public interface DevMenuViewContract {
 
 
 internal class MockDevMenuViewer : DevMenuViewContract {
-    override fun getContext(): Any? {
-        return null
-    }
+    override val _context: Any? = null
 
     override fun showSnackbar(message: String) {
     }

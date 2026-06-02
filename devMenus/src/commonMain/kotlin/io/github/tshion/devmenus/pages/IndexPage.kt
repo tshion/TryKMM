@@ -41,9 +41,7 @@ internal fun IndexPage(
 
     val context = getContext()
     val viewer = object : DevMenuViewContract {
-        override fun getContext(): Any? {
-            return context
-        }
+        override val _context: Any? = context
 
         override fun showSnackbar(message: String) {
             scope.launch {
