@@ -4,7 +4,7 @@ import kotlin.experimental.ExperimentalObjCRefinement
 import kotlin.native.HiddenFromObjC
 
 /**
- * 開発メニューが提供するUI 操作の定義
+ * 開発者メニューが提供するUI 操作の定義
  */
 public interface DevMenuViewContract {
 

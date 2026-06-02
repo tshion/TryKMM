@@ -4,12 +4,12 @@ import kotlin.experimental.ExperimentalObjCName
 import kotlin.native.ObjCName
 
 /**
- * 開発メニューの定義データ
+ * 開発者メニューの定義データ
  */
 public sealed class DevMenuSpec {
 
     /**
-     * タップ可能な開発メニュー
+     * タップ可能な開発者メニュー
      *
      * @param title タイトル
      * @param description 説明 (※省略可)
@@ -29,7 +29,7 @@ public sealed class DevMenuSpec {
     }
 
     /**
-     * タップした際、子要素が表示される開発メニュー
+     * タップした際、子要素が表示される開発者メニュー
      */
     @OptIn(ExperimentalObjCName::class)
     public data class Group(

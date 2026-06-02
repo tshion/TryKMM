@@ -5,7 +5,7 @@ import platform.UIKit.UIViewController
 import kotlin.experimental.ExperimentalObjCName
 
 /**
- * 開発メニュー画面
+ * 開発者メニュー画面
  */
 @OptIn(ExperimentalObjCName::class)
 public fun DevMenuViewController(

@@ -7,7 +7,6 @@ import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
 import androidx.startup.Initializer
-import kotlin.collections.List
 
 internal class DevMenuInitializer : Initializer<DevMenuInitializer> {
 
@@ -19,8 +18,8 @@ internal class DevMenuInitializer : Initializer<DevMenuInitializer> {
             DevMenuActivity::class.java,
         )
         ShortcutInfoCompat.Builder(context, "Developer Menu")
-            .setShortLabel("Developer Menu")
-            .setLongLabel("Open Developer Menu")
+            .setLongLabel("開発者メニューの表示")
+            .setShortLabel("開発者メニューの表示")
             .setIcon(IconCompat.createWithResource(context, android.R.drawable.ic_menu_search))
             .setIntent(intent)
             .build()

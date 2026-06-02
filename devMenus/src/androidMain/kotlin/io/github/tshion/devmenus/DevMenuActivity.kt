@@ -6,7 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.fragment.app.FragmentActivity
 
 /**
- * 開発メニュー画面
+ * 開発者メニュー画面
  */
 public class DevMenuActivity : FragmentActivity() {
 
