@@ -41,8 +41,8 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 internal fun IndexPage(
     history: String,
-    navViewModel: NavViewModel,
-    specViewModel: DevMenuSpecViewModel,
+    navSharedViewModel: NavViewModel = viewModel(),
+    specSharedViewModel: DevMenuSpecViewModel = viewModel(),
 ) {
     var dialogMessage by remember { mutableStateOf("") }
     var isShowProgress by remember { mutableStateOf(false) }
@@ -73,12 +73,12 @@ internal fun IndexPage(
     }
 
     Scaffold(
-        topBar = { Header(navViewModel) },
+        topBar = { Header() },
         snackbarHost = {
             SnackbarHost(hostState = snackbarHostState)
         },
     ) { innerPadding ->
-        val specs = specViewModel.load(history)
+        val specs = specSharedViewModel.load(history)
         LazyColumn(
             modifier = Modifier
                 .consumeWindowInsets(innerPadding)
@@ -88,8 +88,8 @@ internal fun IndexPage(
                 when (spec) {
                     is DevMenuSpec.Action -> ActionListItem(spec, viewer)
                     is DevMenuSpec.Group -> GroupListItem(spec) {
-                        val updated = specViewModel.updateHistory(history, index, spec)
-                        navViewModel.navigateNext(Route.Index(updated))
+                        val updated = specSharedViewModel.updateHistory(history, index, spec)
+                        navSharedViewModel.navigateNext(Route.Index(updated))
                     }
                 }
                 HorizontalDivider()
@@ -134,7 +134,6 @@ private fun Preview() {
     )
     IndexPage(
         "",
-        viewModel(),
-        DevMenuSpecViewModel.create(specs),
+        specSharedViewModel = DevMenuSpecViewModel.create(specs),
     )
 }

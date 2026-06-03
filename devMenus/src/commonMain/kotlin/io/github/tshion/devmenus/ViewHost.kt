@@ -15,25 +15,26 @@ import io.github.tshion.devmenus.pages.IndexPage
 @Composable
 internal fun ViewHost(
     specs: List<DevMenuSpec>?,
+    navSharedViewModel: NavViewModel = viewModel { NavViewModel() },
 ) {
-    val viewModel = DevMenuSpecViewModel.create(specs)
-    return ViewHost(viewModel)
-}
+    // NOTE: ここでインスタンス作成することでViewModel を使いまわせるようにしている
+    @Suppress("unused", "UnusedVariable")
+    val specSharedViewModel = DevMenuSpecViewModel.create(specs)
 
-@Composable
-private fun ViewHost(
-    specViewModel: DevMenuSpecViewModel,
-    navViewModel: NavViewModel = viewModel { NavViewModel() },
-) {
-    navViewModel.navigateNext(Route.Index(""))
+    navSharedViewModel.navigateNext(Route.Index(""))
     NavDisplay(
-        backStack = navViewModel.backStack,
-        onBack = navViewModel::navigateBack,
+        entryDecorators = emptyList(
+            // NOTE:
+            // 未設定にすることでNavEntry 毎にViewModelStoreOwner が設定されることを防ぎ、
+            // ViewModel を使いまわせるようにしている
+        ),
+        backStack = navSharedViewModel.backStack,
+        onBack = navSharedViewModel::navigateBack,
         entryProvider = entryProvider {
             entry<Route.Index>(
                 metadata = mapOf("keyHistory" to "valueHistory"),
             ) { key ->
-                IndexPage(key.history, navViewModel, specViewModel)
+                IndexPage(key.history)
             }
         },
         transitionSpec = {

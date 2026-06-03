@@ -25,15 +25,15 @@ import trykmm.devmenus.generated.resources.arrow_back
 @Composable
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 internal fun Header(
-    navViewModel: NavViewModel = viewModel(),
+    navSharedViewModel: NavViewModel = viewModel(),
 ) {
     TopAppBar(
         title = {
             Text("開発者メニュー")
         },
         navigationIcon = {
-            if (navViewModel.canGoBack()) {
-                IconButton(onClick = navViewModel::navigateBack) {
+            if (navSharedViewModel.canGoBack()) {
+                IconButton(onClick = navSharedViewModel::navigateBack) {
                     Icon(painterResource(Res.drawable.arrow_back), null)
                 }
             }
