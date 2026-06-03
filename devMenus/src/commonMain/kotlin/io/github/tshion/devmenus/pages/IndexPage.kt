@@ -10,8 +10,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -20,6 +23,7 @@ import io.github.tshion.devmenus.DevMenuSpecViewModel
 import io.github.tshion.devmenus.DevMenuViewContract
 import io.github.tshion.devmenus.NavViewModel
 import io.github.tshion.devmenus.Route
+import io.github.tshion.devmenus.atoms.DevMenuProgressOverlay
 import io.github.tshion.devmenus.getContext
 import io.github.tshion.devmenus.molecules.ActionListItem
 import io.github.tshion.devmenus.molecules.GroupListItem
@@ -36,12 +40,21 @@ internal fun IndexPage(
     navViewModel: NavViewModel,
     specViewModel: DevMenuSpecViewModel,
 ) {
+    var isShowProgress by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
 
     val context = getContext()
     val viewer = object : DevMenuViewContract {
         override val _context: Any? = context
+
+        override fun hideProgress() {
+            isShowProgress = false
+        }
+
+        override fun showProgress() {
+            isShowProgress = true
+        }
 
         override fun showSnackbar(message: String) {
             scope.launch {
@@ -72,6 +85,9 @@ internal fun IndexPage(
                 }
                 HorizontalDivider()
             }
+        }
+        if (isShowProgress) {
+            DevMenuProgressOverlay()
         }
     }
 }
