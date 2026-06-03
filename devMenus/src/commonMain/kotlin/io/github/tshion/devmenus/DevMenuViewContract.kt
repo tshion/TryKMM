@@ -25,6 +25,11 @@ public interface DevMenuViewContract {
     public fun hideProgress()
 
     /**
+     * ダイアログの表示
+     */
+    public fun showDialog(message: String)
+
+    /**
      * プログレスUI の表示
      */
     public fun showProgress()
@@ -41,6 +46,9 @@ internal class MockDevMenuViewer : DevMenuViewContract {
     override val _context: Any? = null
 
     override fun hideProgress() {
+    }
+
+    override fun showDialog(message: String) {
     }
 
     override fun showProgress() {

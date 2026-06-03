@@ -4,11 +4,15 @@ import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,6 +44,7 @@ internal fun IndexPage(
     navViewModel: NavViewModel,
     specViewModel: DevMenuSpecViewModel,
 ) {
+    var dialogMessage by remember { mutableStateOf("") }
     var isShowProgress by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -50,6 +55,10 @@ internal fun IndexPage(
 
         override fun hideProgress() {
             isShowProgress = false
+        }
+
+        override fun showDialog(message: String) {
+            dialogMessage = message
         }
 
         override fun showProgress() {
@@ -88,6 +97,20 @@ internal fun IndexPage(
         }
         if (isShowProgress) {
             DevMenuProgressOverlay()
+        }
+        if (dialogMessage.isNotBlank()) {
+            AlertDialog(
+                onDismissRequest = {
+                    dialogMessage = ""
+                },
+                confirmButton = {
+                },
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState()),
+                text = {
+                    Text(dialogMessage)
+                },
+            )
         }
     }
 }
