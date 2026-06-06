@@ -33,13 +33,14 @@ public interface DevMenuViewContract : DevMenuBaseViewContract {
      *
      * ※利用側で適宜Cast してください
      */
-    @Suppress("PropertyName")
-    public val _host: Any?
+    public fun getHost(): Any
 }
 
 
 internal class MockDevMenuViewer : DevMenuViewContract {
-    override val _host: Any? = null
+    override fun getHost(): Any {
+        return Unit
+    }
 
     override fun hideProgress() {
     }

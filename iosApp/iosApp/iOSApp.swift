@@ -14,7 +14,7 @@ struct iOSApp: App {
         WindowGroup {
             MainView(viewModel: MainViewModel())
                 .sheet(isPresented: $isShowingSheet) {
-                    DevMenuViewControllerRepresentable(appDelegate.devMenuList)
+                    DevMenuViewControllerRepresentable(appDelegate.getDevMenuList())
                 }
                 .onReceive(quickActionViewModel.$selected) {
                     isShowingSheet = $0?.type == "showDeveloperMenuList"

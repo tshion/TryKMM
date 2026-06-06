@@ -24,7 +24,7 @@ import io.github.tshion.trykmp.sample.templates.PurchaseConfirmationDialogFragme
 internal class MainApplication : Application(), DevMenuProvider {
 
     @SuppressLint("MissingPermission", "QueryPermissionsNeeded")
-    override val devMenuList = listOf(
+    override fun getDevMenuList(): List<DevMenuSpec> = listOf(
         DevMenuSpec.Group(
             "ローカルプッシュ通知",
             DevMenuSpec.Action("通知設定へ遷移") {

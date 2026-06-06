@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: DevMenuProvider {
 
-    var devMenuList: [DevMenuSpec] {
+    func getDevMenuList() -> [DevMenuSpec] {
         let goSettingsAction = DevMenuSpec.Action("アプリのOS 設定画面へ遷移") { _ in
             if let url = URL(string: UIApplication.openSettingsURLString) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -46,7 +46,8 @@ extension AppDelegate: DevMenuProvider {
                 "ローカルプッシュ通知",
                 [
                     goSettingsAction,
-                    DevMenuSpec.Action("アプリを起動する通知") { viewer in
+                    DevMenuSpec.Action("アプリを起動する通知") {
+                        let viewer = DevMenuAppleViewer($0)
                         UNUserNotificationCenter.current().requestAuthorization(
                             options: [.alert, .sound, .badge]
                         ) { granted, error in
@@ -80,7 +81,8 @@ extension AppDelegate: DevMenuProvider {
                 ],
             ),
             goSettingsAction,
-            DevMenuSpec.Action("アプリ側のダイアログ表示") { viewer in
+            DevMenuSpec.Action("アプリ側のダイアログ表示") {
+                let viewer = DevMenuAppleViewer($0)
                 let alert = UIAlertController(
                     title: "",
                     message: "購入しますか？",
@@ -89,8 +91,7 @@ extension AppDelegate: DevMenuProvider {
                 alert.addAction(
                     UIAlertAction(title: "OK", style: .default, handler: nil)
                 )
-                DevMenuAppleViewer(viewer).viewController
-                    .present(alert, animated: true, completion: nil)
+                viewer.viewController.present(alert, animated: true, completion: nil)
             },
         ]
     }

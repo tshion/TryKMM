@@ -16,7 +16,7 @@ public class DevMenuActivity : FragmentActivity() {
 
         val provider = application as? DevMenuProvider
         setContent {
-            ViewHost(provider?.devMenuList)
+            ViewHost(provider?.getDevMenuList())
         }
     }
 }

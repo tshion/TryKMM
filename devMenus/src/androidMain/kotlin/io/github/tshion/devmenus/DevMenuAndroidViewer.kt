@@ -9,5 +9,5 @@ public class DevMenuAndroidViewer(
     viewer: DevMenuViewContract,
 ) : DevMenuViewer(viewer) {
 
-    public val activity: FragmentActivity = viewer._host as FragmentActivity
+    public val activity: FragmentActivity = viewer.getHost() as FragmentActivity
 }

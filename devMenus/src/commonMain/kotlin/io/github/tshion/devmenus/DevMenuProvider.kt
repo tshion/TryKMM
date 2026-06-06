@@ -6,7 +6,7 @@ package io.github.tshion.devmenus
 public interface DevMenuProvider {
 
     /**
-     * 表示する開発者メニューの定義データ
+     * 開発者メニューの定義データの取得
      */
-    public val devMenuList: List<DevMenuSpec>
+    public fun getDevMenuList(): List<DevMenuSpec>
 }
