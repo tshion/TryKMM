@@ -19,7 +19,7 @@ internal class DevMenuInitializer : Initializer<DevMenuInitializer> {
         )
         ShortcutInfoCompat.Builder(context, "Developer Menu")
             .setLongLabel("開発者メニューの表示")
-            .setShortLabel("開発者メニューの表示")
+            .setShortLabel("開発者メニュー")
             .setIcon(IconCompat.createWithResource(context, android.R.drawable.ic_menu_search))
             .setIntent(intent)
             .build()
