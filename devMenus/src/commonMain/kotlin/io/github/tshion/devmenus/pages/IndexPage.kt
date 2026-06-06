@@ -28,7 +28,7 @@ import io.github.tshion.devmenus.DevMenuViewContract
 import io.github.tshion.devmenus.NavViewModel
 import io.github.tshion.devmenus.Route
 import io.github.tshion.devmenus.atoms.DevMenuProgressOverlay
-import io.github.tshion.devmenus.getContext
+import io.github.tshion.devmenus.getHostPage
 import io.github.tshion.devmenus.molecules.ActionListItem
 import io.github.tshion.devmenus.molecules.GroupListItem
 import io.github.tshion.devmenus.molecules.Header
@@ -49,9 +49,9 @@ internal fun IndexPage(
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
 
-    val context = getContext()
+    val hostPage = getHostPage()
     val viewer = object : DevMenuViewContract {
-        override val _context: Any? = context
+        override val _hostPage = hostPage
 
         override fun hideProgress() {
             isShowProgress = false

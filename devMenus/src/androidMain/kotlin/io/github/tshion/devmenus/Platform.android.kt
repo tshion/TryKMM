@@ -4,6 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 @Composable
-internal actual fun getContext(): Any? {
+internal actual fun getHostPage(): Any {
     return LocalContext.current
 }

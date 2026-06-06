@@ -36,11 +36,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: DevMenuProvider {
 
     var devMenuList: [DevMenuSpec] {
+        let goSettingsAction = DevMenuSpec.Action("アプリのOS 設定画面へ遷移") { _ in
+            if let url = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
         return [
             DevMenuSpec.Group(
-                "ディープリンク",
+                "ローカルプッシュ通知",
                 [
-                    DevMenuSpec.Action("通常のアプリ起動") { viewer in
+                    goSettingsAction,
+                    DevMenuSpec.Action("アプリを起動する通知") { viewer in
                         UNUserNotificationCenter.current().requestAuthorization(
                             options: [.alert, .sound, .badge]
                         ) { granted, error in
@@ -51,14 +57,14 @@ extension AppDelegate: DevMenuProvider {
 
                             let content = UNMutableNotificationContent()
                             content.title = "ローカルプッシュ通知"
-                            content.body = "5秒後に表示される通知です"
+                            content.body = "タップした際、アプリを起動する"
                             content.sound = .default
-                            
+
                             let request = UNNotificationRequest(
                                 identifier: "localNotification",
                                 content: content,
                                 trigger: UNTimeIntervalNotificationTrigger(
-                                    timeInterval: 5.0,
+                                    timeInterval: 0,
                                     repeats: false
                                 )
                             )
@@ -70,12 +76,21 @@ extension AppDelegate: DevMenuProvider {
                                 }
                             }
                         }
-                    }
-                ]
+                    },
+                ],
             ),
-            DevMenuSpec.Action("a") { _ in
-            },
-            DevMenuSpec.Action("b", "c") { _ in
+            goSettingsAction,
+            DevMenuSpec.Action("アプリ側のダイアログ表示") { viewer in
+                let alert = UIAlertController(
+                    title: "",
+                    message: "購入しますか？",
+                    preferredStyle: .alert
+                )
+                alert.addAction(
+                    UIAlertAction(title: "OK", style: .default, handler: nil)
+                )
+                DevMenuViewContractExtensionsKt.getViewController(viewer)
+                    .present(alert, animated: true, completion: nil)
             },
         ]
     }

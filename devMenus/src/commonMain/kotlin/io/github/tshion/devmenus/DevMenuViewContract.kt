@@ -9,15 +9,12 @@ import kotlin.native.HiddenFromObjC
 public interface DevMenuViewContract {
 
     /**
-     * Android Context の取得
+     * Compose の起点になっている画面
      *
      * ※利用側で適宜Cast してください
      */
-    @HiddenFromObjC
-    @OptIn(ExperimentalObjCRefinement::class)
     @Suppress("PropertyName")
-    public val _context: Any?
-
+    public val _hostPage: Any?
 
     /**
      * プログレスUI を非表示にする
@@ -43,7 +40,7 @@ public interface DevMenuViewContract {
 
 
 internal class MockDevMenuViewer : DevMenuViewContract {
-    override val _context: Any? = null
+    override val _hostPage: Any? = null
 
     override fun hideProgress() {
     }

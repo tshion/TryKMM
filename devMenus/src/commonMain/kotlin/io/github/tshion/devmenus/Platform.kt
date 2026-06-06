@@ -2,6 +2,11 @@ package io.github.tshion.devmenus
 
 import androidx.compose.runtime.Composable
 
-/** Android Context の取得 */
+/**
+ * Compose の起点になっている画面の取得
+ *
+ * Android: Activity
+ * iOS: UIViewController
+ */
 @Composable
-internal expect fun getContext(): Any?
+internal expect fun getHostPage(): Any
