@@ -1,21 +1,6 @@
 package io.github.tshion.devmenus
 
-import kotlin.experimental.ExperimentalObjCRefinement
-import kotlin.native.HiddenFromObjC
-
-/**
- * 開発者メニューが提供するUI 操作の定義
- */
-public interface DevMenuViewContract {
-
-    /**
-     * Compose の起点になっている画面
-     *
-     * ※利用側で適宜Cast してください
-     */
-    @Suppress("PropertyName")
-    public val _hostPage: Any?
-
+public interface DevMenuBaseViewContract {
     /**
      * プログレスUI を非表示にする
      */
@@ -38,9 +23,23 @@ public interface DevMenuViewContract {
     public fun showSnackbar(message: String)
 }
 
+/**
+ * 開発者メニューが提供するUI 操作の定義
+ */
+public interface DevMenuViewContract : DevMenuBaseViewContract {
+
+    /**
+     * Compose の起点になっている画面
+     *
+     * ※利用側で適宜Cast してください
+     */
+    @Suppress("PropertyName")
+    public val _host: Any?
+}
+
 
 internal class MockDevMenuViewer : DevMenuViewContract {
-    override val _hostPage: Any? = null
+    override val _host: Any? = null
 
     override fun hideProgress() {
     }

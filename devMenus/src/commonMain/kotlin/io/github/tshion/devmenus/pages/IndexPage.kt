@@ -51,7 +51,7 @@ internal fun IndexPage(
 
     val hostPage = getHostPage()
     val viewer = object : DevMenuViewContract {
-        override val _hostPage = hostPage
+        override val _host = hostPage
 
         override fun hideProgress() {
             isShowProgress = false

@@ -89,7 +89,7 @@ extension AppDelegate: DevMenuProvider {
                 alert.addAction(
                     UIAlertAction(title: "OK", style: .default, handler: nil)
                 )
-                DevMenuViewContractExtensionsKt.getViewController(viewer)
+                DevMenuAppleViewer(viewer).viewController
                     .present(alert, animated: true, completion: nil)
             },
         ]

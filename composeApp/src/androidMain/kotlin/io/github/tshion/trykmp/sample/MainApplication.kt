@@ -16,9 +16,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.net.toUri
+import io.github.tshion.devmenus.DevMenuAndroidViewer
 import io.github.tshion.devmenus.DevMenuProvider
 import io.github.tshion.devmenus.DevMenuSpec
-import io.github.tshion.devmenus.getActivity
 import io.github.tshion.trykmp.sample.templates.PurchaseConfirmationDialogFragment
 
 internal class MainApplication : Application(), DevMenuProvider {
@@ -27,15 +27,17 @@ internal class MainApplication : Application(), DevMenuProvider {
     override val devMenuList = listOf(
         DevMenuSpec.Group(
             "ローカルプッシュ通知",
-            DevMenuSpec.Action("通知設定へ遷移") { viewer ->
+            DevMenuSpec.Action("通知設定へ遷移") {
+                val viewer = DevMenuAndroidViewer(it)
                 val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
                     putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
                 }
                 if (intent.resolveActivity(packageManager) != null) {
-                    viewer.getActivity().startActivity(intent)
+                    viewer.activity.startActivity(intent)
                 }
             },
-            DevMenuSpec.Action("アプリを起動する通知") { viewer ->
+            DevMenuSpec.Action("アプリを起動する通知") {
+                val viewer = DevMenuAndroidViewer(it)
                 NotificationChannel(
                     CHANNEL_ID,
                     "Developer Menu",
@@ -74,17 +76,19 @@ internal class MainApplication : Application(), DevMenuProvider {
                 }
             },
         ),
-        DevMenuSpec.Action("アプリのOS 設定画面へ遷移") { viewer ->
+        DevMenuSpec.Action("アプリのOS 設定画面へ遷移") {
+            val viewer = DevMenuAndroidViewer(it)
             val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
                 data = "package:${packageName}".toUri()
             }
             if (intent.resolveActivity(packageManager) != null) {
-                viewer.getActivity().startActivity(intent)
+                viewer.activity.startActivity(intent)
             }
         },
-        DevMenuSpec.Action("アプリ側のダイアログ表示") { viewer ->
+        DevMenuSpec.Action("アプリ側のダイアログ表示") {
+            val viewer = DevMenuAndroidViewer(it)
             PurchaseConfirmationDialogFragment().show(
-                viewer.getActivity().supportFragmentManager,
+                viewer.activity.supportFragmentManager,
                 PurchaseConfirmationDialogFragment.TAG,
             )
         },
