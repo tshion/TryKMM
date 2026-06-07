@@ -8,13 +8,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         application.shortcutItems = [
-            UIApplicationShortcutItem(
-                type: "showDeveloperMenuList",
-                localizedTitle: "開発者メニューの表示",
-                localizedSubtitle: nil,
-                icon: UIApplicationShortcutIcon(systemImageName: "magnifyingglass"),
-                userInfo: nil
-            )
+            DevMenuPresenter.companion.setupShortcutItem(self.getDevMenuList())
         ]
         return true
     }
@@ -65,7 +59,7 @@ extension AppDelegate: DevMenuProvider {
                                 identifier: "localNotification",
                                 content: content,
                                 trigger: UNTimeIntervalNotificationTrigger(
-                                    timeInterval: 0,
+                                    timeInterval: 3.0,
                                     repeats: false
                                 )
                             )
