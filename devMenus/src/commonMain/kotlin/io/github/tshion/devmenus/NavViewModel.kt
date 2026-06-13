@@ -11,6 +11,11 @@ internal class NavViewModel : ViewModel() {
     val backStack = SnapshotStateList<Route>()
 
 
+    init {
+        navigateNext(Route.Index(""))
+    }
+
+
     /**
      * 一つ前の画面に戻れるかどうか
      */

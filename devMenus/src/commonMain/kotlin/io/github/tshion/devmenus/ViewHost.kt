@@ -21,7 +21,6 @@ internal fun ViewHost(
     @Suppress("unused", "UnusedVariable")
     val specSharedViewModel = DevMenuSpecViewModel.create(specs)
 
-    navSharedViewModel.navigateNext(Route.Index(""))
     NavDisplay(
         entryDecorators = emptyList(
             // NOTE:
