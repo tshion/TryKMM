@@ -10,8 +10,8 @@ import io.github.tshion.trykmp.sample.templates.PurchaseConfirmationDialogFragme
 internal class MainApplication : Application(), DevMenuProvider {
 
     override fun getDevMenuList(): List<DevMenuSpec> = listOf(
-        DevMenuSpecItems.goLocalPushGroup(),
-        DevMenuSpecItems.goOsSettings(),
+        DevMenuSpecItems.LocalPushGroup,
+        DevMenuSpecItems.OsSettings,
         DevMenuSpec.Action("アプリ側のダイアログ表示") {
             val viewer = DevMenuAndroidViewer(it)
             PurchaseConfirmationDialogFragment().show(
