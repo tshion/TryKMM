@@ -46,13 +46,11 @@ public class DevMenuPresenter private constructor(
 
         private val activeWindow: UIWindow?
             get() = UIApplication.sharedApplication.connectedScenes
-                .firstOrNull { it is UIWindowScene }
-                ?.let {
-                    val scene = it as UIWindowScene
-                    scene.windows
-                }
-                ?.firstOrNull { it is UIWindow && it.isKeyWindow() }
-                ?.let { it as UIWindow }
+                .filterIsInstance<UIWindowScene>()
+                .firstOrNull()
+                ?.windows
+                ?.filterIsInstance<UIWindow>()
+                ?.firstOrNull { it.isKeyWindow() }
 
         public lateinit var presenter: DevMenuPresenter
             private set
