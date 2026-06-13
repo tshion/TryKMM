@@ -2,7 +2,9 @@ import DevMenus
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-    private let devMenuPresenter = DevMenuPresenter.companion.presenter
+    private var devMenuPresenter: DevMenuPresenter {
+        DevMenuPresenter.companion.presenter
+    }
 
 
     func scene(
