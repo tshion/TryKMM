@@ -41,8 +41,8 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 internal fun IndexPage(
     history: String,
-    navSharedViewModel: NavViewModel = viewModel(),
-    specSharedViewModel: DevMenuSpecViewModel = viewModel(),
+    navSharedViewModel: NavViewModel,
+    specSharedViewModel: DevMenuSpecViewModel,
 ) {
     var dialogMessage by remember { mutableStateOf("") }
     var isShowProgress by remember { mutableStateOf(false) }
@@ -137,6 +137,7 @@ private fun Preview() {
     )
     IndexPage(
         "",
+        navSharedViewModel = viewModel { NavViewModel() },
         specSharedViewModel = DevMenuSpecViewModel.create(specs),
     )
 }

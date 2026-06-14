@@ -17,10 +17,7 @@ internal fun ViewHost(
     specs: List<DevMenuSpec>?,
     navSharedViewModel: NavViewModel = viewModel { NavViewModel() },
 ) {
-    // NOTE: ここでインスタンス作成することでViewModel を使いまわせるようにしている
-    @Suppress("unused", "UnusedVariable")
     val specSharedViewModel = DevMenuSpecViewModel.create(specs)
-
     NavDisplay(
         entryDecorators = emptyList(
             // NOTE:
@@ -33,7 +30,7 @@ internal fun ViewHost(
             entry<Route.Index>(
                 metadata = mapOf("keyHistory" to "valueHistory"),
             ) { key ->
-                IndexPage(key.history)
+                IndexPage(key.history, navSharedViewModel, specSharedViewModel)
             }
         },
         transitionSpec = {
