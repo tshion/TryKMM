@@ -107,10 +107,11 @@ internal fun IndexPage(
                 },
                 confirmButton = {
                 },
-                modifier = Modifier
-                    .verticalScroll(rememberScrollState()),
                 text = {
-                    Text(dialogMessage)
+                    Text(
+                        text = dialogMessage,
+                        modifier = Modifier.verticalScroll(rememberScrollState()),
+                    )
                 },
             )
         }

@@ -21,5 +21,6 @@ internal class MainApplication : Application(), DevMenuProvider {
                 PurchaseConfirmationDialogFragment.TAG,
             )
         },
+        DevMenuSpecItems.DevMenuDialogSample,
     )
 }

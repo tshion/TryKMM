@@ -45,6 +45,7 @@ extension AppDelegate: DevMenuProvider {
                 )
                 viewer.viewController.present(alert, animated: true, completion: nil)
             },
+            DevMenuSpecItems.shared.DevMenuDialogSample,
         ]
     }
 }
