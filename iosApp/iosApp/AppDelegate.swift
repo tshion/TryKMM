@@ -1,3 +1,4 @@
+import DevMenus
 import UIKit
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -7,13 +8,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         application.shortcutItems = [
-            UIApplicationShortcutItem(
-                type: "showDeveloperMenuList",
-                localizedTitle: "開発者メニューの表示",
-                localizedSubtitle: nil,
-                icon: UIApplicationShortcutIcon(systemImageName: "magnifyingglass"),
-                userInfo: nil
-            )
+            DevMenuPresenter.companion.setupShortcutItem(self.getDevMenuList())
         ]
         return true
     }
@@ -29,5 +24,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
         configuration.delegateClass = SceneDelegate.self
         return configuration
+    }
+}
+
+extension AppDelegate: DevMenuProvider {
+
+    func getDevMenuList() -> [DevMenuSpec] {
+        return [
+            DevMenuSpecItems.shared.LocalPushGroup,
+            DevMenuSpecItems.shared.OsSettings,
+            DevMenuSpec.Action("アプリ側のダイアログ表示") {
+                let viewer = DevMenuAppleViewer($0)
+                let alert = UIAlertController(
+                    title: "",
+                    message: "購入しますか？",
+                    preferredStyle: .alert
+                )
+                alert.addAction(
+                    UIAlertAction(title: "OK", style: .default, handler: nil)
+                )
+                viewer.viewController.present(alert, animated: true, completion: nil)
+            },
+            DevMenuSpecItems.shared.DevMenuDialogSample,
+        ]
     }
 }

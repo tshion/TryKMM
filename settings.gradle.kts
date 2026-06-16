@@ -29,4 +29,5 @@ dependencyResolutionManagement {
 }
 
 include(":composeApp")
+include(":devMenus")
 include(":trykmp")

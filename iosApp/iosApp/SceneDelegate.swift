@@ -1,8 +1,10 @@
+import DevMenus
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
-    private let quickActionViewModel = QuickActionViewModel.shared
+    private var devMenuPresenter: DevMenuPresenter {
+        DevMenuPresenter.companion.presenter
+    }
 
 
     func scene(
@@ -10,7 +12,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         willConnectTo session: UISceneSession,
         options connectionOptions: UIScene.ConnectionOptions
     ) {
-        quickActionViewModel.set(connectionOptions.shortcutItem)
+        if let item = connectionOptions.shortcutItem, devMenuPresenter.canHandle(item) {
+            devMenuPresenter.handle(item)
+        }
     }
 
     func windowScene(
@@ -18,7 +22,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         performActionFor shortcutItem: UIApplicationShortcutItem,
         completionHandler: @escaping (Bool) -> Void
     ) {
-        quickActionViewModel.set(shortcutItem)
+        if devMenuPresenter.canHandle(shortcutItem) {
+            devMenuPresenter.handle(shortcutItem)
+        }
         completionHandler(true)
     }
 }
