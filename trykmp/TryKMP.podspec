@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   #
 
   spec.name         = "TryKMP"
-  spec.version      = "0.1.5"
+  spec.version      = "0.2.0"
   spec.summary      = "TryKMP for iOS."
 
   # This description is used to generate tags and improve search results.
