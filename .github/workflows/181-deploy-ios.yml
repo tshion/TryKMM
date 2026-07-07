@@ -20,7 +20,7 @@ jobs:
       tag: ${{ steps.meta.outputs.tag }}
     steps:
       # https://github.com/actions/checkout
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
   
       # https://github.com/actions/setup-java
       - uses: actions/setup-java@v5
@@ -46,7 +46,7 @@ jobs:
       zipname: ${{ steps.name.outputs.zipname }}
     steps:
         # https://github.com/actions/checkout
-        - uses: actions/checkout@v6
+        - uses: actions/checkout@v7
 
         # https://github.com/actions/setup-java
         - name: set up JDK
@@ -102,13 +102,13 @@ jobs:
 
       # https://github.com/actions/checkout
       - name: Checkout dist repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           repository: ${{ github.repository_owner }}/TryKMMRepo
           token: ${{ steps.app-token.outputs.token }}
 
       - name: Checkout scripts
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           path: tmp
           sparse-checkout: |
