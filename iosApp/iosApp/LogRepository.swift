@@ -10,9 +10,13 @@ class LogRepository {
                     return
                 }
 
+                var date = Date.now
                 while !Task.isCancelled {
-                    if let entries = try? store.getEntries() {
-                        let logs = entries.compactMap { $0 }
+                    if let entries = try? store.getEntries(at: store.position(date: date)) {
+                        let logs = entries.filter { date < $0.date }.compactMap { $0 }
+                        if let last = logs.max(by: { $0.date < $1.date }) {
+                            date = last.date
+                        }
                         continuation.yield(logs)
                     }
                     do {

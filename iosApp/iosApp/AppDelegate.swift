@@ -55,12 +55,12 @@ extension AppDelegate: DevMenuProvider {
                 let viewer = DevMenuAppleViewer($0)
                 AppDelegate.task = Task {
                     for await logs in AppDelegate.repository.stream {
-                        // let log = logs.first
-                        // viewer.showSnackbar(message: log?.composedMessage ?? "Hoge")
-
-                        for log in logs {
-                            viewer.showSnackbar(message: log.composedMessage)
-                        }
+                        viewer.showSnackbar(
+                            message: """
+                                     \(logs.count) 件のログ
+                                     \(logs.map { $0.composedMessage })
+                                     """
+                        )
                     }
                 }
             },
