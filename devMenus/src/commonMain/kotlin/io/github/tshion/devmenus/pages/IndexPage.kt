@@ -32,6 +32,10 @@ import io.github.tshion.devmenus.getHostPage
 import io.github.tshion.devmenus.molecules.ActionListItem
 import io.github.tshion.devmenus.molecules.GroupListItem
 import io.github.tshion.devmenus.molecules.Header
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 /**
@@ -48,11 +52,18 @@ internal fun IndexPage(
     var isShowProgress by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
+    var snackbarScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     val hostPage = getHostPage()
     val viewer = object : DevMenuViewContract {
         override fun getHost(): Any {
             return hostPage
+        }
+
+        override fun dismissSnackbar() {
+            snackbarScope.cancel()
+            snackbarScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+            snackbarHostState.currentSnackbarData?.dismiss()
         }
 
         override fun hideProgress() {
@@ -69,7 +80,9 @@ internal fun IndexPage(
 
         override fun showSnackbar(message: String) {
             scope.launch {
-                snackbarHostState.showSnackbar(message)
+                snackbarScope.launch {
+                    snackbarHostState.showSnackbar(message)
+                }
             }
         }
     }

@@ -29,6 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 extension AppDelegate: DevMenuProvider {
 
+    private static var repository = LogRepository()
+    private static var task: Task<Void, Never>?
+
     func getDevMenuList() -> [DevMenuSpec] {
         return [
             DevMenuSpecItems.shared.LocalPushGroup,
@@ -44,6 +47,27 @@ extension AppDelegate: DevMenuProvider {
                     UIAlertAction(title: "OK", style: .default, handler: nil)
                 )
                 viewer.viewController.present(alert, animated: true, completion: nil)
+            },
+            DevMenuSpec.Action("開始: ログ") {
+                AppDelegate.task?.cancel()
+                AppDelegate.task = nil
+
+                let viewer = DevMenuAppleViewer($0)
+                AppDelegate.task = Task {
+                    for await logs in AppDelegate.repository.stream {
+                        // let log = logs.first
+                        // viewer.showSnackbar(message: log?.composedMessage ?? "Hoge")
+
+                        for log in logs {
+                            viewer.showSnackbar(message: log.composedMessage)
+                        }
+                    }
+                }
+            },
+            DevMenuSpec.Action("終了: ログ") {
+                AppDelegate.task?.cancel()
+                AppDelegate.task = nil
+                DevMenuAppleViewer($0).dismissSnackbar()
             },
             DevMenuSpecItems.shared.DevMenuDialogSample,
         ]

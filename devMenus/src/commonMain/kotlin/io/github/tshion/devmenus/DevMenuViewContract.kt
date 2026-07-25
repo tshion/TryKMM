@@ -1,6 +1,10 @@
 package io.github.tshion.devmenus
 
 public interface DevMenuBaseViewContract {
+
+    @Suppress("SpellCheckingInspection")
+    public fun dismissSnackbar()
+
     /**
      * プログレスUI を非表示にする
      */
@@ -40,6 +44,9 @@ public interface DevMenuViewContract : DevMenuBaseViewContract {
 internal class MockDevMenuViewer : DevMenuViewContract {
     override fun getHost(): Any {
         return Unit
+    }
+
+    override fun dismissSnackbar() {
     }
 
     override fun hideProgress() {

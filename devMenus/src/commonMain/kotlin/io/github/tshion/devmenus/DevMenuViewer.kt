@@ -7,6 +7,10 @@ public open class DevMenuViewer(
     protected val viewer: DevMenuViewContract,
 ) : DevMenuBaseViewContract {
 
+    override fun dismissSnackbar() {
+        viewer.dismissSnackbar()
+    }
+
     override fun hideProgress() {
         viewer.hideProgress()
     }
